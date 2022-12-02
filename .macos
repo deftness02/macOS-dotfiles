@@ -1,0 +1,487 @@
+#!/usr/bin/env bash
+
+###############################################################################
+# macOS Configuration Script                                                   #
+###############################################################################
+# This file is based largely upon the efforts of:
+# ~/.macos — https://mths.be/macos
+# See my repo readme for more credits:
+# https://github.com/leftygamer02/macOS-dotfiles
+
+# To begin, the System Preferences (pre-Ventura / Settings (post-Ventura) app 
+# must be closed so as to prevent it from overwriting any changes to take
+# place in this script.
+osascript -e 'tell application "System Preferences" to quit'
+
+# Now ask for an administrator/SU password
+sudo -v
+
+# For the duration of the .macos script's execution, the sudo session will be 
+# maintained with checks every 60 seconds.
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+###############################################################################
+## Set Opts                                                                  ##
+###############################################################################
+# TODO: Add descriptions of opts for context 
+
+# This is the list of opts I'm presented with using macOS Ventura.
+# Sources used include:
+# - https://ss64.com/osx/set.html
+# - https://zsh.sourceforge.io/Doc/Release/Options.html
+# - 
+
+# Opt Name            Default     Description
+# noaliases             off       
+# aliasfuncdef          off       Allows the definition of functions, such as using 
+#                                 the ‘name ()’ syntax if name was expanded as 
+#                                 an alias.
+# allexport             off       Mark variables which are modified or created 
+#                                 for export.
+# noalwayslastprompt    off       
+# alwaystoend           off       If a completion is performed with the cursor 
+#                                 within a word, and a full completion is inserted, 
+#                                 the cursor is moved to the end of the word.
+# appendcreate          off       
+# noappendhistory       off       
+# autocd                off
+# autocontinue          off       
+# noautolist            off       Prevents list choices on an ambiguous completion. 
+# noautomenu            off       Prevents use menu completion after the second 
+#                                 consecutive request for completion, such as 
+#                                 pressing the tab key repeatedly.
+# autonamedirs          off       Any parameter that is set to the absolute name 
+#                                 of a directory immediately becomes a name for 
+#                                 that directory, that will be used by the ‘%~’ 
+#                                 and related prompt sequences, and will be available 
+#                                 when completion is performed on a word starting with ‘~’.
+# noautoparamkeys       off       
+# noautoparamslash      off       
+# autopushd             off       
+# noautoremoveslash     off       
+# autoresume            off       
+# nobadpattern          off       
+# nobanghist            off       
+# nobareglobqual        off       
+# bashautolist          off       
+# bashrematch           off       
+# nobeep                off       Prevents the device from audible beeps upon 
+#                                 encountering an error.
+# nobgnice              off       
+# braceccl              off       
+# bsdecho               off       
+# nocaseglob            off       
+# nocasematch           off       
+# cbases                off       
+# cdablevars            off       
+# cdsilent              off       
+# chasedots             off       
+# chaselinks            off       
+# nocheckjobs           off       
+# nocheckrunningjobs    off       
+# noclobber             off       Prevent output redirection using `>', `>&',
+#                                 and `<>' from overwriting existing files.
+# combiningchars        on        
+# completealiases       off       Prevents aliases on the command line from being internally 
+#                                 substituted before completion is attempted.
+# completeinword        off       
+# continueonerror       off       
+# correct               off       
+# correctall            off       
+# cprecedences          off       
+# cshjunkiehistory      off       
+# cshjunkieloops        off       
+# cshjunkiequotes       off       
+# cshnullcmd            off       
+# cshnullglob           off       
+# nodebugbeforecmd      off       
+# dvorak                off       
+# emacs                 off         
+# noequals              off       
+# errexit               off       Exit immediately if a simple command exits with a non-zero status, unless
+#                                 the command that fails is part of an until or  while loop, part of an
+#                                 if statement, part of a && or || list, or if the command's return status
+#                                 is being inverted using !.
+# errreturn             off       
+# noevallineno          off       
+# noexec                off       
+# extendedglob          off       
+# extendedhistory       off       
+# noflowcontrol          off       
+# forcefloat             off       
+# nofunctionargzero     off       
+# noglob                off       Disable file name generation (globbing).
+# noglobalexport        off       
+# noglobalrcs           off         
+# globassign            off         
+# globcomplete          off         
+# globdots              off         
+# globstarshort         off       
+# globsubst             off       
+# nohashcmds            off       Locate and remember (hash) commands as they are looked
+#                                 up for execution. This option is enabled by default.
+# nohashdirs            off       
+# hashexecutablesonly   off       
+# nohashlistall         off       
+# histallowclobber      off       
+# nohistbeep            off       
+# histexpiredupsfirst    off        
+# histfcntllock         off       
+# histfindnodups         off        
+# histignorealldups     off       
+# histignoredups        off       
+# histignorespace       off       
+# histlexwords          off       
+# histnofunctions       off       
+# histnostore           off       
+# histreduceblanks      off       
+# nohistsavebycopy      off       
+# histsavenodups        off       
+# histsubstpattern      off       
+# histverify            off       
+# nohup                 off       
+# ignorebraces          off       
+# ignoreclosebraces     off       The shell will perform brace expansion if activated.
+# ignoreeof             off       
+# incappendhistory      off       
+# incappendhistorytime  off       
+# interactive           on        
+# interactivecomments   off       
+# ksharrays             off       
+# kshautoload           off       
+# kshglob               off       
+# kshoptionprint        off       
+# kshtypeset            off       
+# kshzerosubscript      off       
+# nolistambiguous       off       
+# nolistbeep            off       
+# listpacked            off       
+# listrowsfirst          off        
+# nolisttypes           off       
+# localloops            off       
+# localoptions          off       
+# localpatterns         off       
+# localtraps            off       
+# login                 on        
+# longlistjobs          off       
+# magicequalsubst       off       
+# mailwarning           off       
+# markdirs              off       
+# menucomplete          off       
+# monitor               on        
+# nomultibyte           off       
+# nomultifuncdef        off       
+# nomultios             off       
+# nonomatch             off       
+# nonotify              off       Cause the status of terminated background jobs to be 
+#                                 reported immediately, rather than before printing the
+#                                 next primary prompt.
+# nullglob              off       
+# numericglobsort       off       
+# octalzeroes           off       
+# overstrike            off       Defaults the editor to "insert" mode. This replaces 
+#                                 the character to the right with each keystroke.
+# pathdirs              off       
+# pathscript            off       
+# pipefail              off       
+# posixaliases          off       
+# posixargzero          off       
+# posixbuiltins         off       
+# posixcd               off       
+# posixidentifiers       off        
+# posixjobs             off       
+# posixstrings          off       
+# posixtraps            off       
+# printeightbit         off       
+# printexitvalue        off       
+# privileged            off       
+# promptbang            off       
+# nopromptcr            off       
+# nopromptpercent       off       
+# nopromptsp            off       
+# promptsubst           off       
+# pushdignoredups       off       
+# pushdminus            off       
+# pushdsilent           off       
+# pushdtohome           off       
+# rcexpandparam         off       
+# rcquotes              off       
+# norcs                 off       
+# recexact              off       
+# rematchpcre           off       
+# restricted            off       
+# rmstarsilent          off       
+# rmstarwait            off       
+# sharehistory          off       
+# shfileexpansion        off        
+# shglob                off       
+# shinstdin             on        
+# shnullcmd             off       
+# shoptionletters       off       
+# noshortloops          off       
+# shwordsplit           off       
+# singlecommand         off       
+# singlelinezle         off       When activated, this prevents multi-line editing.
+# sourcetrace           off       
+# sunkeyboardhack       off       
+# transientrprompt      off       
+# trapsasync            off       
+# typesetsilent         off       
+# nounset               off       
+# verbose               off       
+# vi                    off       
+# warncreateglobal      off       
+# warnnestedvar         off       
+# xtrace                off       
+# zle                   on        
+
+# Turn off some options
+optOff=(
+    
+)
+echo "Turning off opts..."
+set +o "${optOff[@]}"
+
+
+# Here are the opts if you're using bash
+# Opt                 Default     Description
+# cdable_vars    	        off     
+# cdspell        	        off     
+# checkhash      	        off       
+# checkwinsize   	        off       
+# cmdhist        	        on        
+# compat31       	        off       
+# dotglob        	        off       
+# execfail       	        off       
+# expand_aliases 	        on        
+# extdebug       	        off       
+# extglob        	        off
+# extquote       	        on
+# failglob       	        off
+# force_fignore  	        on
+# gnu_errfmt     	        off
+# histappend     	        off
+# histreedit     	        off
+# histverify     	        off
+# hostcomplete   	        on
+# huponexit      	        off
+# interactive_comments	  on
+# lithist        	        off
+# login_shell    	        off
+# mailwarn       	        off
+# no_empty_cmd_completion	off
+# nocaseglob     	        off
+# nocasematch    	        off
+# nullglob       	        off
+# progcomp       	        on
+# promptvars     	        on
+# restricted_shell	      off
+# shift_verbose  	        off
+# sourcepath     	        on
+# xpg_echo       	        off
+
+# Turn off some options
+shoptOff=(
+    history
+    noaliases
+    extendedhistory
+    noglob
+    nohashcmds
+    nohashdirs
+    login
+    privileged
+    sharehistory
+    sunkeyboardhack
+    zle
+)
+echo "Turning off opts..."
+set +o "${shoptOff[@]}"
+
+# Turn on some options
+shoptOn=(
+    errexit
+    nounset
+    pipefail
+    nobeep
+    noexec
+    histnostore
+    ignoreeof
+    localoptions
+    markdirs
+    nonotify
+    norcs
+    sourcetrace
+    trapsasync
+    xtrace
+)
+echo "Turning on opts..."
+set -o "${shoptOn[@]}"
+
+(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+
+###############################################################################
+# General UI/UX                                                               #
+###############################################################################
+
+# Turn off all audio when the system is booting.
+sudo nvram SystemAudioVolume=" "
+
+# Disable transparency in the menu bar and elsewhere in macOS.
+defaults write com.apple.universalaccess reduceTransparency -bool true
+
+# Increase the speed of dialog boxes resizing
+defaults write -g NSWindowResizeTime 0.001
+
+# Disable resuming any previously-opened apps system-wide.
+defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+
+# Disable automatic termination of inactive apps.
+defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
+
+# Reveal IP address, hostname, OS version, etc. when clicking the clock
+# from the login window.
+sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
+
+# Disable Notification Center and remove the menu bar icon
+launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
+
+# Disable automatic capitalization as it’s annoying when typing code
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+
+# Disable smart dashes as they’re annoying when typing code
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+# Disable automatic period substitution as it’s annoying when typing code
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
+# Disable smart quotes as they’re annoying when typing code
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+
+# Disable auto-correct
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+# Force a lighter text rendering style than is commonly used as default
+defaults write -g AppleFontSmoothing -int 1
+
+# Disable smooth scrolling. This is done to reduce animations and save computer
+# resources for more important stuff.
+# Default values:
+# defaults write -g NSScrollAnimationEnabled -bool true
+# defaults write -g AppleScrollAnimationEnabled -bool true
+defaults write -g NSScrollAnimationEnabled -bool false
+defaults write -g AppleScrollAnimationEnabled -bool false
+
+# Remove all window animation effects when opening/closing windows to speed
+# things up a little.
+# Default values:
+# defaults write -g NSAutomaticWindowAnimationsEnabled -bool true
+# defaults write -g DisablePasswordManagerAnimations -bool false
+defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
+defaults write -g DisablePasswordManagerAnimations -bool true
+
+# To further speed things up, remove the animations for Quick Look windows.
+defaults write -g QLPanelAnimationDuration -float 0
+
+# While iCloud is great and all, let's disable it as a default location in save
+# dialogs.
+defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false
+
+# Don't show the Open panel when launching apps like TextEdit or Preview if opened
+# without a target file already selected.
+defaults write -g NSShowAppCentricOpenPanelInsteadOfUntitledFile -bool false
+
+# Expand the Save dialog window by default for convenience.
+defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
+
+# Disable automatic spell checking for reduced resource usage.
+defaults write -g NSAllowContinuousSpellChecking -bool false
+
+# Increase tracking speed beyond the maximum allowable value you can select in
+# the System Preferences / Settings app (which is 3.0).
+defaults write -g com.apple.mouse.scaling -float 5.0
+
+# don't blink the caret
+defaults write -g NSTextInsertionPointBlinkPeriodOff -float 0
+defaults write -g NSTextInsertionPointBlinkPeriodOn -float 999999999999
+
+# don't treat period or colon as part of words
+# en_US_POSIX corresponds to the "United States (Computer)" setting that was shown in System Preferences in 10.8 and earlier
+defaults write -g AppleTextBreakLocale en_US_POSIX
+
+# display ASCII control characters in caret notation
+defaults write -g NSTextShowsControlCharacters -bool true
+
+# add a context menu item for showing the web inspector to web views
+defaults write -g WebKitDeveloperExtras -bool true
+
+# make the speed when scrolling by dragging faster
+defaults write -g NSAutoscrollResponseMultiplier -float 3
+
+# don't include shadows in screenshots of windows
+defaults write com.apple.screencapture disable-shadow -bool true
+
+# don't show crash report dialogs
+defaults write com.apple.CrashReporter DialogType none
+
+# don't show a warning when opening files downloaded from the Internet
+# this does not disable the warnings shown when opening an application for the first time
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+
+# don't verify disk images and don't run fsck on quarantined disk images
+defaults write com.apple.frameworks.diskimages skip-verify -bool true
+defaults write com.apple.frameworks.diskimages auto-fsck -bool true
+
+# don't save .DS_Store files on network volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+
+# don't open a Finder window when extracting an archive
+defaults write com.apple.archiveutility dearchive-reveal-after -bool false
+
+# don't open a Finder window when mounting a volume
+defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool false
+
+# change the default fonts in Safari
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2StandardFontFamily Georgia
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DefaultFontSize 16
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2FixedFontFamily Menlo
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DefaultFixedFontSize 14
+
+# use a custom implementation for full screen windows in Skim
+defaults write net.sourceforge.skim-app.skim SKUseLegacyFullScreen -bool true
+
+# hide the sides of the drawers in full screen in Skim
+defaults write net.sourceforge.skim-app.skim SKHideClosedFullScreenSidePanels -bool true
+
+###############################################################################
+# Kill affected applications                                                  #
+###############################################################################
+
+for app in "Activity Monitor" \
+	"Address Book" \
+	"Calendar" \
+	"cfprefsd" \
+	"Contacts" \
+	"CrossOver" \
+	"DataGrip" \
+	"Dock" \
+	"FaceTime" \
+	"Finder" \
+	"Firefox" \
+	"Mail" \
+	"Maps" \
+	"Messages" \
+	"Music" \
+	"Photos" \
+	"Podcasts" \
+	"Rider" \
+	"Safari" \
+	"Stocks" \
+	"SystemUIServer" \
+	"Terminal" \
+	"TextEdit" \
+	"Transmission" \
+	"iCal"; do
+	killall "${app}" &> /dev/null
+done
+echo "Configuration completed. Some of these changes will require a logout/restart to take effect."
