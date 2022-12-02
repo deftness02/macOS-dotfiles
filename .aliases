@@ -36,9 +36,10 @@ alias gch="git checkout"
 alias gp="git pull"
 alias gst="git status"
 alias ga="git add"
-alias gc="git commit"
+alias gc="git commit -m"
 alias commit="git add . && git commit -m"
 alias gp="git push -u origin"
+alias main="git push -u origin main"
 alias unstage="git restore --staged ."
 
 ###############################################################################
