@@ -325,12 +325,12 @@ set -o "${shoptOn[@]}"
 ###############################################################################
 
 # Turn off all audio when the system is booting.
-sudo nvram SystemAudioVolume=" "
+nvram SystemAudioVolume=" "
 
 # Disable transparency in the menu bar and elsewhere in macOS.
 defaults write com.apple.universalaccess reduceTransparency -bool true
 
-# Increase the speed of dialog boxes resizing
+# Increase the speed of dialog boxes resizing.
 defaults write -g NSWindowResizeTime 0.001
 
 # Disable resuming any previously-opened apps system-wide.
@@ -343,49 +343,43 @@ defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 # from the login window.
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
-# Disable Notification Center and remove the menu bar icon
+# Disable Notification Center and remove the menu bar icon.
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
-# Disable automatic capitalization as it’s annoying when typing code
+# Disable automatic capitalization as it’s annoying when typing code.
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
-# Disable smart dashes as they’re annoying when typing code
+# Disable smart dashes as they’re annoying when typing code.
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
-# Disable automatic period substitution as it’s annoying when typing code
+# Disable automatic period substitution as it’s annoying when typing code.
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
-# Disable smart quotes as they’re annoying when typing code
+# Disable smart quotes as they’re annoying when typing code.
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-# Disable auto-correct
+# Disable auto-correct because it's really annoying when typing code.
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
-# Force a lighter text rendering style than is commonly used as default
-defaults write -g AppleFontSmoothing -int 1
+# Disable automatic spell checking for reduced resource usage.
+defaults write -g NSAllowContinuousSpellChecking -bool false
 
 # Disable smooth scrolling. This is done to reduce animations and save computer
 # resources for more important stuff.
-# Default values:
-# defaults write -g NSScrollAnimationEnabled -bool true
-# defaults write -g AppleScrollAnimationEnabled -bool true
-defaults write -g NSScrollAnimationEnabled -bool false
-defaults write -g AppleScrollAnimationEnabled -bool false
+defaults write -g NSScrollAnimationEnabled -bool false # Default is true
+defaults write -g AppleScrollAnimationEnabled -bool false # Default is true
 
 # Remove all window animation effects when opening/closing windows to speed
 # things up a little.
-# Default values:
-# defaults write -g NSAutomaticWindowAnimationsEnabled -bool true
-# defaults write -g DisablePasswordManagerAnimations -bool false
-defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
-defaults write -g DisablePasswordManagerAnimations -bool true
+defaults write -g NSAutomaticWindowAnimationsEnabled -bool false # Default is true
+defaults write -g DisablePasswordManagerAnimations -bool true # Default is false
 
 # To further speed things up, remove the animations for Quick Look windows.
 defaults write -g QLPanelAnimationDuration -float 0
 
-# While iCloud is great and all, let's disable it as a default location in save
-# dialogs.
-defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false
+# While iCloud is great and all, let's disable it as a default location when
+# saving new files.
+defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false # Default is true
 
 # Don't show the Open panel when launching apps like TextEdit or Preview if opened
 # without a target file already selected.
@@ -394,64 +388,56 @@ defaults write -g NSShowAppCentricOpenPanelInsteadOfUntitledFile -bool false
 # Expand the Save dialog window by default for convenience.
 defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
 
-# Disable automatic spell checking for reduced resource usage.
-defaults write -g NSAllowContinuousSpellChecking -bool false
-
 # Increase tracking speed beyond the maximum allowable value you can select in
 # the System Preferences / Settings app (which is 3.0).
 defaults write -g com.apple.mouse.scaling -float 5.0
 
-# don't blink the caret
+# Stop the cursor/caret from blinking.
 defaults write -g NSTextInsertionPointBlinkPeriodOff -float 0
 defaults write -g NSTextInsertionPointBlinkPeriodOn -float 999999999999
 
-# don't treat period or colon as part of words
-# en_US_POSIX corresponds to the "United States (Computer)" setting that was shown in System Preferences in 10.8 and earlier
+# Don't treat period or colon as part of a word when parsing.
+# The value `en_US_POSIX` corresponds to the "United States (Computer)" setting 
+# that was shown in System Preferences in 10.8 and earlier.
 defaults write -g AppleTextBreakLocale en_US_POSIX
 
-# display ASCII control characters in caret notation
+# Display ASCII control characters in caret notation.
 defaults write -g NSTextShowsControlCharacters -bool true
 
-# add a context menu item for showing the web inspector to web views
+# Add a context menu item for showing the web inspector to web views.
 defaults write -g WebKitDeveloperExtras -bool true
 
-# make the speed when scrolling by dragging faster
+# Increase the speed of scrolling by dragging.
 defaults write -g NSAutoscrollResponseMultiplier -float 3
 
-# don't include shadows in screenshots of windows
+# Don't include shadows in screenshots of windows
 defaults write com.apple.screencapture disable-shadow -bool true
 
-# don't show crash report dialogs
+# Omit crash report dialogs.
 defaults write com.apple.CrashReporter DialogType none
 
-# don't show a warning when opening files downloaded from the Internet
-# this does not disable the warnings shown when opening an application for the first time
+# Don't show a warning when opening files downloaded from the internet.
+# This does not disable warnings shown when opening an application for the first time.
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-# don't verify disk images and don't run fsck on quarantined disk images
+# Don't verify disk images and don't run fsck on quarantined disk images.
 defaults write com.apple.frameworks.diskimages skip-verify -bool true
 defaults write com.apple.frameworks.diskimages auto-fsck -bool true
 
-# don't save .DS_Store files on network volumes
+# Don't save .DS_Store files on network volumes.
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
-# don't open a Finder window when extracting an archive
+# Don't open a Finder window when extracting an archive.
 defaults write com.apple.archiveutility dearchive-reveal-after -bool false
 
-# don't open a Finder window when mounting a volume
+# Don't open a Finder window when mounting a volume
 defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool false
 
-# change the default fonts in Safari
+# Change the default fonts in Safari
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2StandardFontFamily Georgia
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DefaultFontSize 16
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2FixedFontFamily Menlo
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DefaultFixedFontSize 14
-
-# use a custom implementation for full screen windows in Skim
-defaults write net.sourceforge.skim-app.skim SKUseLegacyFullScreen -bool true
-
-# hide the sides of the drawers in full screen in Skim
-defaults write net.sourceforge.skim-app.skim SKHideClosedFullScreenSidePanels -bool true
 
 ###############################################################################
 # Kill affected applications                                                  #
