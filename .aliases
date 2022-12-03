@@ -41,6 +41,8 @@ alias commit="git add . && git commit -m"
 alias gp="git push -u origin"
 alias main="git push -u origin main"
 alias unstage="git restore --staged ."
+alias checkout="git checkout"
+alias checknew="git checkout -b"
 
 ###############################################################################
 ## Colors                                                                    ##
