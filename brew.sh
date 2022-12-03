@@ -2,12 +2,19 @@
 
 # The purpose of this script is to install helpful command-line (CLI)
 # tools through the use of our favorite package manager, Homebrew.
-# This script assumes you've already completed the initial step of
-# installing Homebrew.
 
 ###############################################################################
 # Initial Setup                                                               #
 ###############################################################################
+
+echo "Starting setup"
+xcode-select --install
+
+# Check for Homebrew to be present, install if it's missing.
+if test ! $(which brew); then
+    echo "Installing homebrew..."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
 # Now let's make sure the latest version is in use.
 brew update
@@ -145,8 +152,17 @@ brew install "${otherPackages[@]}"
 # More casks will be added as I figure out what's preferable in their list of 3,000 apps.
 grabCasks=(
     adobe-acrobat-reader
+    bitwarden
+    cakebrew
+    crossover
+    datagrip
+    firefox
     iterm2
-    macdown
+    lulu
+    protonmail-bridge
+    protonvpn
+    pycharm-edu
+    rider
     slack
     spotify
     steam
@@ -160,4 +176,7 @@ brew install --cask "${grabCasks[@]}"
 ###############################################################################
 
 # Remove outdated versions from the cellar.
+echo "Cleaning up old files..."
 brew cleanup
+
+echo "Homebrew setup completed!"
