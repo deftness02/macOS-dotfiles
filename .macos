@@ -321,23 +321,37 @@ set -o "${shoptOn[@]}"
 
 
 ###############################################################################
-# General UI/UX                                                               #
+## General UI/UX                                                             ##
 ###############################################################################
 
 # Turn off all audio when the system is booting.
 nvram SystemAudioVolume=" "
+nvram StartupMute=%01
 
 # Disable transparency in the menu bar and elsewhere in macOS.
 defaults write com.apple.universalaccess reduceTransparency -bool true
 
+# Set the highlight color to green.
+defaults write -g AppleHighlightColor -string "0.764700 0.976500 0.568600"
+
 # Increase the speed of dialog boxes resizing.
-defaults write -g NSWindowResizeTime 0.001
+defaults write -g NSWindowResizeTime -float 0.001
+
+# Set the default sidebar icon size to medium.
+defaults write -g NSTableViewDefaultSizeMode -int 2
 
 # Disable resuming any previously-opened apps system-wide.
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
 # Disable automatic termination of inactive apps.
-defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
+defaults write -g NSDisableAutomaticTermination -bool true
+
+# Always show scrollbars to get rid of animation and such.
+# Possible values: `WhenScrolling`, `Automatic` and `Always`
+defaults write -g AppleShowScrollBars -string "Always"
+
+# Disable the over-the-top focus ring animation.
+defaults write -g NSUseAnimatedFocusRing -bool false
 
 # Reveal IP address, hostname, OS version, etc. when clicking the clock
 # from the login window.
@@ -347,19 +361,19 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
 # Disable automatic capitalization as it’s annoying when typing code.
-defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+defaults write -g NSAutomaticCapitalizationEnabled -bool false
 
 # Disable smart dashes as they’re annoying when typing code.
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
 
 # Disable automatic period substitution as it’s annoying when typing code.
-defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
 
 # Disable smart quotes as they’re annoying when typing code.
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
 
 # Disable auto-correct because it's really annoying when typing code.
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Disable automatic spell checking for reduced resource usage.
 defaults write -g NSAllowContinuousSpellChecking -bool false
@@ -384,6 +398,10 @@ defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false # Default is tru
 # Don't show the Open panel when launching apps like TextEdit or Preview if opened
 # without a target file already selected.
 defaults write -g NSShowAppCentricOpenPanelInsteadOfUntitledFile -bool false
+
+# Automatically expand the Save panel by default.
+defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
+defaults write -g NSNavPanelExpandedStateForSaveMode2 -bool true
 
 # Expand the Save dialog window by default for convenience.
 defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
@@ -427,11 +445,248 @@ defaults write com.apple.frameworks.diskimages auto-fsck -bool true
 # Don't save .DS_Store files on network volumes.
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
+###############################################################################
+## Accessibility Settings                                                    ##
+###############################################################################
+
+defaults write com.apple.Accessibility EnhancedBackgroundContrastEnabled -bool true
+defaults write com.apple.Accessibility FullKeyboardAccessFocusRingEnabled -bool false
+defaults write com.apple.Accessibility ReduceMotionEnabled -bool true
+defaults write com.apple.Accessibility FullKeyboardAccessEnabled -bool false
+defaults write com.apple.Accessibility DarkenSystemColors -bool true
+
+###############################################################################
+## Bluetooth                                                                 ##
+###############################################################################
+
+sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0 && \
+sudo killall -HUP bluetoothd
+
+# Uncomment to enable Bluetooth again.
+# sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 1
+
+###############################################################################
+## Bonjour                                                                 ##
+###############################################################################
+
+# Disable the Bonjour service.
+defaults write /System/Library/LaunchDaemons/com.apple.mDNSResponder.plist ProgramArguments -array-add "-NoMulticastAdvertisements"
+dscacheutil -flushcache && \
+killall -HUP mDNSResponder
+
+###############################################################################
+## Dock, Dashboard, and Hot Corners                                          ##
+###############################################################################
+
+defaults write com.apple.dock launchanim -bool false
+defaults write com.apple.dock show-recents -bool false
+defaults write com.apple.dock autohide -bool false
+defaults write com.apple.dock magnification -bool false
+defaults write com.apple.dock mineffect -string "scale"
+defaults write com.apple.dock minimize-to-application -bool true
+defaults write com.apple.dock tilesize -int 50
+defaults write com.apple.dock wvous-br-corner -int 0
+
+###############################################################################
+## Finder                                                                    ##
+###############################################################################
+
+defaults write com.apple.finder NewWindowTarget -string "PfLo"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}"
+
 # Don't open a Finder window when extracting an archive.
 defaults write com.apple.archiveutility dearchive-reveal-after -bool false
 
-# Don't open a Finder window when mounting a volume
+# Don't open a Finder window when mounting a volume.
 defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool false
+
+# Allow quitting the app via ⌘ + Q; doing so will also hide desktop icons.
+defaults write com.apple.finder QuitMenuItem -bool true
+
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+defaults write com.apple.finder FXEnableRemoveFromICloudDriveWarning -bool false
+defaults write com.apple.finder FXRemoveOldTrashItems -bool true
+defaults write com.apple.finder WarnOnEmptyTrash -bool false
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+defaults write com.apple.finder FXArrangeGroupViewBy -string "Kind"
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write -g AppleShowAllExtensions -bool true
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library
+chflags nohidden /Volumes
+defaults write com.apple.finder QuitMenuItem -bool true
+defaults write -g NSScrollViewRubberbanding -bool false
+defaults write com.apple.finder CreateDesktop -bool false
+
+
+###############################################################################
+## Firewall                                                                  ##
+###############################################################################
+
+# This turns on the macOS Firewall.
+/usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
+
+# This is an added security measure as it gets your talkative computer to stop
+# chatting with all the devices that may wander nearby or on the same network.
+/usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+
+# Turn this on to block all incoming web traffic. This effectively gives you
+# control over when your apps communicate outward, plus it's a good security
+# step to take.
+/usr/libexec/ApplicationFirewall/socketfilterfw --setblockall
+
+# Turn on logging if you want to track connections taking place.
+/usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
+
+# This turns off the ability for signed apps to bypass the Firewall.
+# I do this so that I can customize which apps I actually want connected
+# to the internet, versus curbing the overly-chatty system apps I 
+# never use and can't remove.
+/usr/libexec/ApplicationFirewall/socketfilterfw --setallowsigned off
+
+# Block internet access to the following apps because they're annoying.
+allowApps=(
+    /Applications/AdBlock.app
+    /Applications/App\ Store.app
+    /Applications/Apple\ Configurator.app
+    /Applications/Bitwarden.app
+    /Applications/Cakebrew.app
+    /Applications/Calendar.app
+    /Applications/Clock.app
+    /Applications/CloudMounter.app
+    /Applications/Contacts.app
+    /Applications/CrossOver.app
+    /Applications/DataGrip.app
+    /Applications/Day\ One.app
+    /Applications/Dictionary.app
+    /Applications/Discord.app
+    /Applications/Firefox.app
+    /Applications/GitHub\ Desktop.app
+    /Applications/iMazing\ Profile\ Editor.app
+    /Applications/iMazing.app
+    /Applications/IntelliJ\ IDEA.app
+    /Applications/Jump\ Desktop.app
+    /Applications/LastPass.app
+    /Applications/Lulu.app
+    /Applications/Mail.app
+    /Applications/Parallels\ Desktop.app
+    /Applications/Photos.app
+    /Applications/Postman.app
+    /Applications/Proton\ Mail\ Bridge.app
+    /Applications/ProtonVPN.app
+    /Applications/PyCharm\ Edu.app
+    /Applications/Rider.app
+    /Applications/Safari.app
+    /Applications/Sequel\ Ace.app
+    /Applications/Shortcuts.app
+    /Applications/Spotify.app
+    /Applications/System\ Settings.app
+)
+echo "Giving internet access to apps..."
+/usr/libexec/ApplicationFirewall/socketfilterfw --add "${allowApps[@]}"
+
+# Block internet access to the following apps because they're annoying.
+blockApps=(
+    /Applications/AppLocker.app
+    /Applications/Books.app
+    /Applications/Calculator.app
+    /Applications/Chess.app
+    /Applications/Font\ Book.app
+    /Applications/Home.app
+    /Applications/Image\ Capture.app
+    /Applications/Launchpad.app
+    /Applications/MacroRecorder.app
+    /Applications/Maps.app
+    /Applications/Messages.app
+    /Applications/Mission\ Control.app
+    /Applications/Music.app
+    /Applications/News.app
+    /Applications/Photo\ Booth.app
+    /Applications/Podcasts.app
+    /Applications/Preview.app
+    /Applications/QuickTime\ Player.app
+    /Applications/Siri.app
+    /Applications/Stocks.app
+    /Applications/TextEdit.app
+    /Applications/Time\ Machine.app
+    /Applications/TV.app
+    /Applications/Voice\ Memos.app
+)
+echo "Blocking internet access to apps..."
+/usr/libexec/ApplicationFirewall/socketfilterfw --blockapp "${blockApps[@]}"
+
+###############################################################################
+## Infrared Receiver                                                         ##
+###############################################################################
+
+defaults write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -int 0
+
+# Uncomment below to enable
+# defaults write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -int 1
+
+###############################################################################
+## Power Saving Settings                                                     ##
+###############################################################################
+
+pmset -a lidwake 1
+pmset -a sms 0
+
+# Restart automatically on power loss
+pmset -a autorestart 1
+pmset -a standby 0
+pmset -a powernap 0
+pmset -a disksleep 0
+pmset -a sleep 0
+pmset -a ttyskeepawake 0
+pmset -a displaysleep 0
+pmset -a tcpkeepalive 0
+pmset -a lowpowermode 0
+pmset -a womp 0
+
+systemsetup -setrestartfreeze on
+systemsetup -setcomputersleep Off > /dev/null
+
+rm -rf /private/var/vm/sleepimage
+touch /private/var/vm/sleepimage
+chflags uchg /private/var/vm/sleepimage
+
+###############################################################################
+## Remote Access                                                             ##
+###############################################################################
+
+# Disable remote login.
+launchctl unload -w /System/Library/LaunchDaemons/ssh.plist
+
+# Disable the ARD Agent and Remove Access Privileges for All Users.
+/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -configure -access -off
+
+
+# Get rid of Apple Remote Desktop settings
+sudo rm -rf /var/db/RemoteManagement ; \
+sudo defaults delete /Library/Preferences/com.apple.RemoteDesktop.plist ; \
+defaults delete ~/Library/Preferences/com.apple.RemoteDesktop.plist ; \
+sudo rm -r /Library/Application\ Support/Apple/Remote\ Desktop/ ; \
+rm -r ~/Library/Application\ Support/Remote\ Desktop/ ; \
+rm -r ~/Library/Containers/com.apple.RemoteDesktop
+
+
+# Disable TFTP
+launchctl unload -F /System/Library/LaunchDaemons/tftp.plist
+launchctl stop com.apple.tftpd
+
+###############################################################################
+## Safari                                                                    ##
+###############################################################################
 
 # Change the default fonts in Safari
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2StandardFontFamily Georgia
@@ -439,8 +694,52 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2FixedFontFamily Menlo
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DefaultFixedFontSize 14
 
+# Activate the Develop menu and Web Inspector
+defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+defaults write -g WebKitDeveloperExtras -bool true
+
 ###############################################################################
-# Kill affected applications                                                  #
+## Screencaptures                                                            ##
+###############################################################################
+
+defaults write com.apple.screencapture location -string "${HOME}/medien"
+
+defaults write com.apple.screencapture type -string "png"
+
+###############################################################################
+## TextEdit                                                                  ##
+###############################################################################
+
+# Create an untitled document when launching
+defaults write com.apple.TextEdit NSShowAppCentricOpenPanelInsteadOfUntitledFile -bool false
+
+# Turn off rich text mode.
+defaults write com.apple.TextEdit RichText -int 0
+
+###############################################################################
+## Trackpad, Mouse, Keyboard, Bluetooth Accessories, and Input               ##
+###############################################################################
+
+# Changes targeting the following domains:
+# - com.apple.driver.AppleBluetoothMultitouch.trackpad
+# - 
+
+# Int or bool?
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -int 1
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpage TrackpadRotate -int 0
+# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpage Clicking -bool false
+
+# Increase sound quality for Bluetooth headphones/headsets.
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+
+# Enable the press-and-hold behavior to access additional characters.
+defaults write -g ApplePressAndHoldEnabled -bool true
+
+###############################################################################
+## Kill Affected Applications                                                ##
 ###############################################################################
 
 for app in "Activity Monitor" \
