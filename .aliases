@@ -19,12 +19,36 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ~="cd ~"
 
-# Shortcuts to common directories.
+# Shortened ls command for file details
+alias l="ls -al"
+alias c="cat"
+
+ialias -g cat="bat --plain --wrap character"
+
+# Make remove more final
+alias rm="rm -rf"
+alias k9="kill -9"
+
+# Shortcuts to common directories
 alias doc="cd ~/Documents"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/projects"
 alias lib="cd ~/Library"
+alias proj="~/projects"
+alias daten~"~/daten"
+alias media="~/medien"
+alias apps="/Applications"
+alias me="~/"
+
+alias dhc="ssh dhc"
+    
+# Shortcuts to desired or most-used apps:
+alias textedit="open /Applications/TextEdit.app"
+alias rider="open /Applications/Rider.app"
+alias firefox="open /Applications/Firefox.app"
+alias filezilla="open /Applications/FileZilla.app"
+alias indesign="open /Applications/InDesign.app"
 
 ###############################################################################
 ## Git Commands                                                              ##
@@ -43,6 +67,7 @@ alias main="git push -u origin main"
 alias unstage="git restore --staged ."
 alias checkout="git checkout"
 alias checknew="git checkout -b"
+alias h="history"
 
 ###############################################################################
 ## Colors                                                                    ##
@@ -84,6 +109,9 @@ alias egrep='egrep --color=auto'
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
+# Lock the screen (when going AFK)
+alias afk="i3lock -c 000000"
+
 # Get week number
 alias week='date +%V'
 
@@ -94,6 +122,9 @@ alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup
 # alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 # alias canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
 
+# untar
+alias untar="tar xvf"
+    
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
@@ -195,6 +226,8 @@ alias c="clear"
 
 # Concatenate and print content of files (add line numbers)
 alias catn="cat -n"
+
+alias reload='exec $SHELL -l'
 
 ###############################################################################
 ## Laravel                                                                   ##
