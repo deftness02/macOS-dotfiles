@@ -67,42 +67,22 @@ fi;
 # This installs `wget`, but includes internationalized URI (IRI) support.
 brew install wget --with-iri
 
-# If you currently or wish to utilize PGP-signing commits, uncomment
+# If you currently use or wish to utilize GPG-signing commits, uncomment
 # the line below. I keep to tokens or SSH certs.
-#brew install gnupg
+# brew install gnupg
 
 ###############################################################################
 # Updating macOS Tools                                                        #
 ###############################################################################
-# TODO: Add descriptions of packages for context.
 
 # Install more recent versions of some macOS tools.
 macTools=(
      vim --with-override-system-vi
      grep
      openssh
-     screen
-     php
-     gmp
 )
 echo "Installing more current macOS tools..."
 brew install "${macTools[@]}"
-
-###############################################################################
-# Getting Some Font Tools                                                     #
-###############################################################################
-# TODO: Add descriptions of packages for context.
-
-# Install font tools.
-brew tap bramstein/webfonttools
-
-fontTools=(
-     sfnt2woff
-     sfnt2woff-zopfli
-     woff2
-)
-echo "Installing some font tools..."
-brew install "${fontTools[@]}"
 
 ###############################################################################
 # Install Other Packages                                                      #
@@ -115,28 +95,15 @@ brew install "${fontTools[@]}"
 otherPackages=(
      ack
      bat
-     ctags
      fzf
      git
-     git-lfs
-     gs
-     gsp7zip
-     imagemagick --with-webp
-     lua
-     lynx
-     macvim
-     mysql # Enables database management capabilities.
      p7zip
-     pigz
+     mysql # Enables database management capabilities.
      pv
      readline
      rename
-     rlwrap
-     ssh-copy-id
-     tmux
+     rlwrap]
      tree
-     vbindiff
-     zopfli
 )
 echo "Installing some other packages..."
 brew install "${otherPackages[@]}"
@@ -151,13 +118,11 @@ brew install "${otherPackages[@]}"
 # folder, instead use Homebrew's casks to automate things.
 # More casks will be added as I figure out what's preferable in their list of 3,000 apps.
 grabCasks=(
-    adobe-acrobat-reader
     bitwarden
     cakebrew
     crossover
     datagrip
     firefox
-    iterm2
     lulu
     protonmail-bridge
     protonvpn
@@ -165,8 +130,6 @@ grabCasks=(
     rider
     slack
     spotify
-    steam
-    visual-studio-code
 )
 echo "Installing cask apps..."
 brew install --cask "${grabCasks[@]}"
