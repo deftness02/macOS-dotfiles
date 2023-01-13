@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
 ###############################################################################
-# macOS Configuration Script                                                   #
+# macOS Configuration Script                                                  #
 ###############################################################################
+#
 # This file is based largely upon the efforts of:
 # ~/.macos — https://mths.be/macos
+#
 # See my repo readme for more credits:
 # https://github.com/leftygamer02/macOS-dotfiles
 
@@ -31,25 +33,29 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # - https://zsh.sourceforge.io/Doc/Release/Options.html
 # - 
 
+# Options have been mapped out below with their default values and descriptions identified. Uncomment any desired lines
+# to enable (-o) or disable (+o) an option.
+#
 # Opt Name            Default       Description
-# noaliases             off         Expand aliases.
-# aliasfuncdef          off         Allows the definition of functions, such as using 
-#                                   the ‘name ()’ syntax if name was expanded as 
-#                                   an alias.
-# allexport             off         Mark variables which are modified or created 
-#                                   for export.
-# noalwayslastprompt    off         If unset, key functions that list completions try 
-#                                   to return to the last prompt if given a numeric argument. 
-#                                   If set these functions try to return to the last prompt if
+# noaliases             off         Expand aliases if disabled.
+#set -o noaliases
+# aliasfuncdef          off         Allows the definition of functions, such as using the ‘name ()’ syntax if name was 
+#                                   expanded as an alias.
+#set -o aliasfuncdef
+# allexport             off         Mark variables which are modified or created for export.
+#set -o allexport
+# noalwayslastprompt    off         If disabled, key functions that list completions try to return to the last prompt if 
+#                                   given a numeric argument. If set these functions try to return to the last prompt if
 #                                   given no numeric argument.
-# alwaystoend           off         If a completion is performed with the cursor 
-#                                   within a word, and a full completion is inserted, 
-#                                   the cursor is moved to the end of the word.
-# appendcreate          off         This option only applies when NO_CLOBBER (-C) is in effect. 
-#                                   If this option is not set, the shell will report an error when
-#                                   a append redirection (>>) is used on a file that does not already 
-#                                   exists (the traditional zsh behaviour of NO_CLOBBER). If the option 
+#set -o noalwayslastprompt
+# alwaystoend           off         If a completion is performed with the cursor within a word, and a full completion is 
+#                                   inserted, the cursor is moved to the end of the word.
+#set -o alwaystoend
+# appendcreate          off         This option only applies when NO_CLOBBER (-C) is in effect. If this option is not set, 
+#                                   the shell will report an error when a append redirection (>>) is used on a file that 
+#                                   does not already exists (the traditional zsh behaviour of NO_CLOBBER). If the option 
 #                                   is set, no error is reported (POSIX behaviour). 
+#set -o appendcreate
 # noappendhistory       off         If this is set, zsh sessions will append their history list to the 
 #                                   history file, rather than replace it. Thus, multiple parallel zsh 
 #                                   sessions will all have the new entries from their history lists added 
@@ -57,44 +63,59 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #                                   periodically re-written to trim it when the number of lines grows 20% 
 #                                   beyond the value specified by $SAVEHIST (see also the HIST_SAVE_BY_COPY 
 #                                   option).
+#set -o noappendhistory
 # autocd                off         If a command is issued that can’t be executed as a normal command, and 
 #                                   the command is the name of a directory, perform the cd command to that 
 #                                   directory. This option is only applicable if the option SHIN_STDIN is set, 
 #                                   i.e. if commands are being read from standard input. The option is designed 
 #                                   for interactive use; it is recommended that cd be used explicitly in scripts 
 #                                   to avoid ambiguity.
+#set -o autocd
 # autocontinue          off         With this option set, stopped jobs that are removed from the job table with the 
 #                                   disown builtin command are automatically sent a CONT signal to make them running.
-# noautolist            off         Prevents list choices on an ambiguous completion. 
+#set -o autocontinue
+# noautolist            off         Prevents list choices on an ambiguous completion.
+#set -o noautolist
 # noautomenu            off         Prevents use menu completion after the second consecutive request for completion, 
 #                                   such as pressing the tab key repeatedly.
+#set -o noautomenu
 # autonamedirs          off         Any parameter that is set to the absolute name of a directory immediately becomes 
 #                                   a name for that directory, that will be used by the ‘%~’ and related prompt sequences, 
 #                                   and will be available when completion is performed on a word starting with ‘~’.
+#set -o autonamedirs
 # noautoparamkeys       off         If a parameter name was completed and a following character (normally a space) 
 #                                   automatically inserted, and the next character typed is one of those that have 
 #                                   to come directly after the name (like ‘}’, ‘:’, etc.), the automatically added 
 #                                   character is deleted, so that the character typed comes immediately after the parameter 
 #                                   name. Completion in a brace expansion is affected similarly: the added character 
 #                                   is a ‘,’, which will be removed if ‘}’ is typed next.
+#set -o noautoparamkeys
 # noautoparamslash      off         If a parameter is completed whose content is the name of a directory, then add 
 #                                   a trailing slash instead of a space.
+#set -o noautoparamslash
 # autopushd             off         Make cd push the old directory onto the directory stack.
+#set -o autopushd
 # noautoremoveslash     off         When the last character resulting from a completion is a slash and the next character 
 #                                   typed is a word delimiter, a slash, or a character that ends a command (such as a 
 #                                   semicolon or an ampersand), remove the slash.
+#set -o noautoremoveslash
 # autoresume            off         Treat single word simple commands without redirection as candidates for resumption 
 #                                   of an existing job.
+#set -o autoresume
 # nobadpattern          off         If a pattern for filename generation is badly formed, print an error message. 
 #                                   (If this option is unset, the pattern will be left unchanged.) 
+#set -o nobadpattern
 # nobanghist            off         Perform textual history expansion, csh-style, treating the character ‘!’ specially.
+#set -o nobanghist
 # nobareglobqual        off         In a glob pattern, treat a trailing set of parentheses as a qualifier list, if it 
 #                                   contains no ‘|’, ‘(’ or (if special) ‘~’ characters.
+#set -o nobareglobqual
 # bashautolist          off         On an ambiguous completion, automatically list choices when the completion function 
 #                                   is called twice in succession. This takes precedence over AUTO_LIST. The setting of 
 #                                   LIST_AMBIGUOUS is respected. If AUTO_MENU is set, the menu behaviour will then start 
 #                                   with the third press. Note that this will not work with MENU_COMPLETE, since repeated 
 #                                   completion calls immediately cycle through the list in that case.
+#set -o bashautolist
 # bashrematch           off         When set, matches performed with the =~ operator will set the BASH_REMATCH array
 #                                   variable, instead of the default MATCH and match variables. The first element of the 
 #                                   BASH_REMATCH array will contain the entire matched text and subsequent elements will 
@@ -102,198 +123,412 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #                                   so that the entire matched portion is stored at index 0 and the first substring is at 
 #                                   index 1. Without this option, the MATCH variable contains the entire matched text and 
 #                                   the match array variable contains substrings.
+#set -o bashrematch
 # nobeep                off         Prevents the device from audible beeps upon encountering an error.
+set -o nobeep
 # nobgnice              off         Run all background jobs at a lower priority. This option is set by default.
+#set -o nobgnice
 # braceccl              off         Expand expressions in braces which would not otherwise undergo brace expansion to a 
-#                                   lexically ordered list of all the characters. See Brace Expansion.
+#                                   lexically-ordered list of all the characters.
+#set -o braceccl
 # bsdecho               off         Make the echo builtin compatible with the BSD echo(1) command. This disables backslashed 
 #                                   escape sequences in echo strings unless the -e option is specified.
+#set -o bsdecho
 # nocaseglob            off         Make globbing (filename generation) sensitive to case. Note that other uses of patterns 
 #                                   are always sensitive to case. If the option is unset, the presence of any character 
 #                                   which is special to filename generation will cause case-insensitive matching. For example, 
 #                                   cvs(/) can match the directory CVS owing to the presence of the globbing flag (unless the 
 #                                   option BARE_GLOB_QUAL is unset).
+#set -o nocaseglob
 # nocasematch           off         Make regular expressions using the zsh/regex module (including matches with =~) sensitive 
 #                                   to case.
+#set -o nocasematch
 # cbases                off         Output hexadecimal numbers in the standard C format, for example ‘0xFF’ instead of the 
 #                                   usual ‘16#FF’. If the option OCTAL_ZEROES is also set (it is not by default), octal numbers 
 #                                   will be treated similarly and hence appear as ‘077’ instead of ‘8#77’. This option has no 
 #                                   effect on the choice of the output base, nor on the output of bases other than hexadecimal 
 #                                   and octal. Note that these formats will be understood on input irrespective of the setting 
 #                                   of C_BASES.
+#set -o cbases
 # cdablevars            off         If the argument to a cd command (or an implied cd with the AUTO_CD option set) is not a 
 #                                   directory, and does not begin with a slash, try to expand the expression as if it were 
 #                                   preceded by a ‘~’ (see Filename Expansion).
+#set -o cdablevars
 # cdsilent              off         Never print the working directory after a cd (whether explicit or implied with the AUTO_CD 
 #                                   option set). cd normally prints the working directory when the argument given to it was -, 
 #                                   a stack entry, or the name of a directory found under CDPATH. Note that this is distinct 
 #                                   from pushd’s stack-printing behaviour, which is controlled by PUSHD_SILENT. This option 
 #                                   overrides the printing-related effects of POSIX_CD.
+#set -o cdsilent
 # chasedots             off         When changing to a directory containing a path segment ‘..’ which would otherwise be treated 
 #                                   as canceling the previous segment in the path (in other words, ‘foo/..’ would be removed from 
 #                                   the path, or if ‘..’ is the first part of the path, the last part of the current working 
 #                                   directory would be removed), instead resolve the path to the physical directory. This option 
 #                                   is overridden by CHASE_LINKS.
+#set -o chasedots
 # chaselinks            off         Resolve symbolic links to their true values when changing directory. This also has the effect 
 #                                   of CHASE_DOTS, i.e. a ‘..’ path segment will be treated as referring to the physical parent, 
 #                                   even if the preceding path segment is a symbolic link.
+set -o chaselinks
 # nocheckjobs           off         Report the status of background and suspended jobs before exiting a shell with job control; 
 #                                   a second attempt to exit the shell will succeed. NO_CHECK_JOBS is best used only in combination 
 #                                   with NO_HUP, else such jobs will be killed automatically.
+#set -o nocheckjobs
 # nocheckrunningjobs    off         Check for both running and suspended jobs when CHECK_JOBS is enabled. When this option is 
 #                                   disabled, zsh checks only for suspended jobs, which matches the default behavior of bash.
-# noclobber             off         Prevent output redirection using `>', `>&',
-#                                   and `<>' from overwriting existing files.
+#set -o nocheckrunningjobs
+# noclobber             off         Prevent output redirection using `>', `>&', and `<>' from overwriting existing files.
+#set -o noclobber
 # combiningchars        on          Assume that the terminal displays combining characters correctly. Specifically, if a base 
 #                                   alphanumeric character is followed by one or more zero-width punctuation characters, assume 
 #                                   that the zero-width characters will be displayed as modifications to the base character within 
 #                                   the same width.
+#set +o combiningchars
 # completealiases       off         Prevents aliases on the command line from being internally substituted before completion is 
 #                                   attempted.
+#set -o completealiases
 # completeinword        off         Assume that the terminal displays combining characters correctly. Specifically, if a base 
 #                                   alphanumeric character is followed by one or more zero-width punctuation characters, assume 
 #                                   that the zero-width characters will be displayed as modifications to the base character 
 #                                   within the same width. Not all terminals handle this. If this option is not set, zero-width 
 #                                   characters are displayed separately with special mark-up.
+#set -o completeinword
 # continueonerror       off         If a fatal error is encountered (see Errors), and the code is running in a script, the shell 
 #                                   will resume execution at the next statement in the script at the top level, in other words 
 #                                   outside all functions or shell constructs such as loops and conditions.
+#set -o continueonerror
 # correct               off         Try to correct the spelling of commands. Note that, when the HASH_LIST_ALL option is not set 
 #                                   or when some directories in the path are not readable, this may falsely report spelling errors 
 #                                   the first time some commands are used.
-# correctall            off       
-# cprecedences          off       
-# cshjunkiehistory      off       
-# cshjunkieloops        off       
-# cshjunkiequotes       off       
-# cshnullcmd            off       
-# cshnullglob           off       
+#set -o 
+# correctall            off         Try to correct the spelling of all arguments in a line.
+#set -o correctall
+# cprecedences          off         This alters the precedence of arithmetic operators to be more like C and other programming 
+#                                   languages.
+#set -o cprecedences
+# cshjunkiehistory      off         A history reference without an event specifier will always refer to the previous command. 
+#                                   Without this option, such a history reference refers to the same event as the previous 
+#                                   history reference on the current command line, defaulting to the previous command.
+#set -o cshjunkiehistory
+# cshjunkieloops        off         Allow loop bodies to take the form ‘list; end’ instead of ‘do list; done’.
+#set -o cshjunkieloops
+# cshjunkiequotes       off         Changes the rules for single- and double-quoted text to match that of csh. These require that
+#                                   embedded newlines be preceded by a backslash; unescaped newlines will cause an error message. 
+#                                   In double-quoted strings, it is made impossible to escape ‘$’, ‘‘’ or ‘"’ (and ‘\’ itself no 
+#                                   longer needs escaping). Command substitutions are only expanded once, and cannot be nested.
+#set -o cshjunkiequotes
+# cshnullcmd            off         Do not use the values of NULLCMD and READNULLCMD when running redirections with no command.
+#set -o cshnullcmd
+# cshnullglob           off         If a pattern for filename generation has no matches, delete the pattern from the argument list; 
+#                                   do not report an error unless all the patterns in a command have no matches. Overrides NOMATCH.
+#set -o cshnullglob
 # nodebugbeforecmd      off         Run the DEBUG trap before each command; otherwise it is run after each command. Setting this 
 #                                   option mimics the behaviour of ksh 93; with the option unset the behaviour is that of ksh 88.
-# dvorak                off       
-# emacs                 off         
+#set -o nodebugbeforecmd
+# dvorak                off         Use the Dvorak keyboard instead of the standard qwerty keyboard as a basis for examining 
+#                                   spelling mistakes for the CORRECT and CORRECT_ALL options and the spell-word editor command.
+#set -o dvorak
+# emacs                 off         If ZLE is loaded, turning on this option has the equivalent effect of ‘bindkey -e’. In addition, 
+#                                   the VI option is unset. Turning it off has no effect. The option setting is not guaranteed to 
+#                                   reflect the current keymap. This option is provided for compatibility; bindkey is the 
+#                                   recommended interface.
+#set -o emacs
 # noequals              off         Perform = filename expansion.
+#set -o noequals
 # errexit               off         Exit immediately if a simple command exits with a non-zero status, unless the command that fails 
 #                                   is part of an until or  while loop, part of an if statement, part of a && or || list, or if the 
 #                                   command's return status is being inverted using !.
-# errreturn             off       
+#set -o errexit
+# errreturn             off         If a command has a non-zero exit status, return immediately from the enclosing function. The 
+#                                   logic is similar to that for ERR_EXIT, except that an implicit return statement is executed 
+#                                   instead of an exit. This will trigger an exit at the outermost level of a non-interactive script.
+#set -o errreturn
 # noevallineno          off         If set, line numbers of expressions evaluated using the builtin eval are tracked separately of 
 #                                   the enclosing environment. This applies both to the parameter LINENO and the line number output 
 #                                   by the prompt escape %i. If the option is set, the prompt escape %N will output the string ‘(eval)’ 
 #                                   instead of the script or function name as an indication. (The two prompt escapes are typically 
 #                                   used in the parameter PS4 to be output when the option XTRACE is set.) If EVAL_LINENO is unset, 
 #                                   the line number of the surrounding script or function is retained during the evaluation.
+#set -o noevallineno
 # noexec                off         Do execute commands. Without this option, commands are read and checked for syntax errors, but 
 #                                   not executed. This option cannot be turned off in an interactive shell, except when ‘-n’ is 
 #                                   supplied to the shell at startup.
-# extendedglob          off       
-# extendedhistory       off       
-# noflowcontrol         off         If this option is unset, output flow control via start/stop characters (usually assigned to 
+#set -o noexec
+# extendedglob          off         Treat the ‘#’, ‘~’ and ‘^’ characters as part of patterns for filename generation, etc. (An 
+#                                   initial unquoted ‘~’ always produces named directory expansion.) 
+#set -o extendedglob
+# extendedhistory       off         Save each command’s beginning timestamp (in seconds since the epoch) and the duration (in seconds) 
+#                                   to the history file. The format of this prefixed data is: 
+#                                   ‘: <beginning time>:<elapsed seconds>;<command>’.
+#set -o extendedhistory
+# noflowcontrol         off         If this option is set, output flow control via start/stop characters (usually assigned to 
 #                                   ^S/^Q) is disabled in the shell’s editor.
-# forcefloat            off       
+#set -o noflowcontrol
+# forcefloat            off         Constants in arithmetic evaluation will be treated as floating point even without the use of a 
+#                                   decimal point; the values of integer variables will be converted to floating point when used in 
+#                                   arithmetic expressions.
+#set -o forcefloat
 # nofunctionargzero     off         When executing a shell function or sourcing a script, set $0 temporarily to the name of the 
 #                                   function/script. Note that toggling FUNCTION_ARGZERO from on to off (or off to on) does not 
 #                                   change the current value of $0. Only the state upon entry to the function or script has an 
 #                                   effect.
+#set -o nofunctionargzero
 # noglob                off         Disable file name generation (globbing).
-# noglobalexport        off         If this option is set, passing the -x flag to the builtins declare, float, integer, readonly 
+#set -o noglob
+# noglobalexport        off         If this option is unset, passing the -x flag to the builtins declare, float, integer, readonly 
 #                                   and typeset (but not local) will also set the -g flag; hence parameters exported to the environment 
 #                                   will not be made local to the enclosing function, unless they were already or the flag +g is given 
-#                                   explicitly. If the option is unset, exported parameters will be made local in just the same way as 
+#                                   explicitly. If the option is set, exported parameters will be made local in just the same way as 
 #                                   any other parameter.
-# noglobalrcs           off         If this option is unset, the startup files /etc/zprofile, /etc/zshrc, /etc/zlogin and /etc/zlogout 
+#set -o noglobalexport
+# noglobalrcs           off         If this option is set, the startup files /etc/zprofile, /etc/zshrc, /etc/zlogin and /etc/zlogout 
 #                                   will not be run. It can be disabled and re-enabled at any time, including inside local startup 
 #                                   files (.zshrc, etc.).
-# globassign            off         
-# globcomplete          off         
-# globdots              off         
-# globstarshort         off       
-# globsubst             off       
-# nohashcmds            off         Locate and remember (hash) commands as they are looked up for execution. This option is enabled 
+#set -o noglobalrcs
+# globassign            off         If this option is set, filename generation (globbing) is performed on the right hand side of scalar 
+#                                   parameter assignments of the form ‘name=pattern (e.g. ‘foo=*’). If the result has more than one word 
+#                                   the parameter will become an array with those words as arguments. This option is provided for backwards 
+#                                   compatibility only: globbing is always performed on the right hand side of array assignments of the 
+#                                   form ‘name=(value)’ (e.g. ‘foo=(*)’) and this form is recommended for clarity; with this option set, 
+#                                   it is not possible to predict whether the result will be an array or a scalar.
+#set -o globassign
+# globcomplete          off         When the current word has a glob pattern, do not insert all the words resulting from the expansion 
+#                                   but generate matches as for completion and cycle through them like MENU_COMPLETE. The matches are 
+#                                   generated as if a ‘*’ was added to the end of the word, or inserted at the cursor when 
+#                                   COMPLETE_IN_WORD is set. This actually uses pattern matching, not globbing, so it works not only 
+#                                   for files but for any completion, such as options, user names, etc.
+#set -o globcomplete
+# globdots              off         Do not require a leading ‘.’ in a filename to be matched explicitly.
+#set -o globdots
+# globstarshort         off         When this option is set and the default zsh-style globbing is in effect, the pattern ‘**/*’ can be
+#                                   abbreviated to ‘**’ and the pattern ‘***/*’ can be abbreviated to ***. Hence ‘**.c’ finds a file 
+#                                   ending in .c in any subdirectory, and ‘***.c’ does the same while also following symbolic links. 
+#                                   A / immediately after the ‘**’ or ‘***’ forces the pattern to be treated as the unabbreviated form.
+#set -o globstarshort
+# globsubst             off         Treat any characters resulting from parameter expansion as being eligible for filename expansion 
+#                                   and filename generation, and any characters resulting from command substitution as being eligible 
+#                                   for filename generation. Braces (and commas in between) do not become eligible for expansion.
+#set -o globsubst
+# nohashcmds            off         If unset, locate and remember (hash) commands as they are looked up for execution. This option is unset 
 #                                   by default.
-# nohashdirs            off         Whenever a command name is hashed, hash the directory containing it, as well as all directories 
+#set -o nohashcmds
+# nohashdirs            off         If unset, whenever a command name is hashed, hash the directory containing it, as well as all directories 
 #                                   that occur earlier in the path. Has no effect if neither HASH_CMDS nor CORRECT is set.
-# hashexecutablesonly   off       
+#set -o nohashdirs
+# hashexecutablesonly   off         When hashing commands because of HASH_CMDS, check that the file to be hashed is actually an executable. 
+#                                   This option is unset by default as if the path contains a large number of commands, or consists of many 
+#                                   remote files, the additional tests can take a long time. Trial and error is needed to show if this option 
+#                                   is beneficial. 
+#set -o hashexecutablesonly
 # nohashlistall         off         Whenever a command completion or spelling correction is attempted, make sure the entire command 
 #                                   path is hashed first. This makes the first completion slower but avoids false reports of spelling 
-#                                   errors.
-# histallowclobber      off       
-# nohistbeep            off         Beep in ZLE when a widget attempts to access a history entry which isn’t there.
-# histexpiredupsfirst   off        
-# histfcntllock         off       
-# histfindnodups        off        
-# histignorealldups     off       
-# histignoredups        off       
-# histignorespace       off       
-# histlexwords          off       
-# histnofunctions       off       
-# histnostore           off       
-# histreduceblanks      off       
+#                                   errors. 
+#set -o nohashlistall
+# histallowclobber      off         Add ‘|’ to output redirections in the history. This allows history references to clobber files 
+#                                   even when CLOBBER is unset. 
+#set -o histallowclobber
+# nohistbeep            off         Beep in ZLE when a widget attempts to access a history entry which isn’t there. 
+#set -o nohistbeep
+# histexpiredupsfirst   off         If the internal history needs to be trimmed to add the current command line, setting this option 
+#                                   will cause the oldest history event that has a duplicate to be lost before losing a unique event 
+#                                   from the list. You should be sure to set the value of HISTSIZE to a larger number than SAVEHIST 
+#                                   in order to give you some room for the duplicated events, otherwise this option will behave just 
+#                                   like HIST_IGNORE_ALL_DUPS once the history fills up with unique events.  
+#set -o histexpiredupsfirst
+# histfcntllock         off         When writing out the history file, by default zsh uses ad-hoc file locking to avoid known problems 
+#                                   with locking on some operating systems. With this option locking is done by means of the system’s 
+#                                   fcntl call, where this method is available. On recent operating systems this may provide better 
+#                                   performance, in particular avoiding history corruption when files are stored on NFS.  
+#set -o histfcntllock
+# histfindnodups        off         When searching for history entries in the line editor, do not display duplicates of a line previously 
+#                                   found, even if the duplicates are not contiguous. 
+#set -o histfindnodups
+# histignorealldups     off         If a new command line being added to the history list duplicates an older one, the older command 
+#                                   is removed from the list (even if it is not the previous event). 
+#set -o histignorealldups
+# histignoredups        off         Do not enter command lines into the history list if they are duplicates of the previous event. 
+#set -o histignoredups
+# histignorespace       off         Remove command lines from the history list when the first character on the line is a space, or when 
+#                                   one of the expanded aliases contains a leading space. Only normal aliases (not global or suffix 
+#                                   aliases) have this behaviour. Note that the command lingers in the internal history until the next 
+#                                   command is entered before it vanishes, allowing you to briefly reuse or edit the line. If you want to 
+#                                   make it vanish right away without entering another command, type a space and press return. 
+#set -o histignorespace
+# histlexwords          off         By default, shell history that is read in from files is split into words on all white space. This 
+#                                   means that arguments with quoted whitespace are not correctly handled, with the consequence that 
+#                                   references to words in history lines that have been read from a file may be inaccurate. When this 
+#                                   option is set, words read in from a history file are divided up in a similar fashion to normal 
+#                                   shell command line handling. Although this produces more accurately delimited words, if the size of 
+#                                   the history file is large this can be slow. Trial and error is necessary to decide. 
+#set -o histlexwords
+# histnofunctions       off         Remove function definitions from the history list. Note that the function lingers in the internal 
+#                                   history until the next command is entered before it vanishes, allowing you to briefly reuse or edit 
+#                                   the definition. 
+#set -o histnofunctions
+# histnostore           off         Remove the history (fc -l) command from the history list when invoked. Note that the command lingers 
+#                                   in the internal history until the next command is entered before it vanishes, allowing you to briefly 
+#                                   reuse or edit the line. 
+#set -o histnostore
+# histreduceblanks      off         Remove superfluous blanks from each command line being added to the history list. 
+#set -o histreduceblanks
 # nohistsavebycopy      off         When the history file is re-written, we normally write out a copy of the file named 
 #                                   $HISTFILE.new and then rename it over the old one. However, if this option is unset, we instead 
 #                                   truncate the old history file and write out the new version in-place. If one of the history-appending 
 #                                   options is enabled, this option only has an effect when the enlarged history file needs to be re-written 
 #                                   to trim it down to size. Disable this only if you have special needs, as doing so makes it possible to 
-#                                   lose history entries if zsh gets interrupted during the save.
-# histsavenodups        off       
-# histsubstpattern      off       
-# histverify            off       
-# nohup                 off         Send the HUP signal to running jobs when the shell exits.
-# ignorebraces          off       
-# ignoreclosebraces     off         The shell will perform brace expansion if activated.
-# ignoreeof             off       
-# incappendhistory      off       
-# incappendhistorytime  off       
-# interactive           on        
-# interactivecomments   off       
-# ksharrays             off       
-# kshautoload           off       
-# kshglob               off       
-# kshoptionprint        off       
-# kshtypeset            off       
-# kshzerosubscript      off       
+#                                   lose history entries if zsh gets interrupted during the save. 
+#set -o nohistsavebycopy
+# histsavenodups        off         By default, shell history that is read in from files is split into words on all white space. This means 
+#                                   that arguments with quoted whitespace are not correctly handled, with the consequence that references to 
+#                                   words in history lines that have been read from a file may be inaccurate. When this option is set, words 
+#                                   read in from a history file are divided up in a similar fashion to normal shell command line handling. 
+#                                   Although this produces more accurately delimited words, if the size of the history file is large this can 
+#                                   be slow. Trial and error is necessary to decide. 
+#set -o histsavenodups
+# histsubstpattern      off         Substitutions using the :s and :& history modifiers are performed with pattern matching instead of string 
+#                                   matching. This occurs wherever history modifiers are valid, including glob qualifiers and parameters. 
+#set -o histsubstpattern
+# histverify            off         Whenever the user enters a line with history expansion, don’t execute the line directly; instead, perform 
+#                                   history expansion and reload the line into the editing buffer. 
+#set -o histverify
+# nohup                 off         Send the HUP signal to running jobs when the shell exits. 
+#set -o nohup
+# ignorebraces          off         Do not perform brace expansion. 
+#set -o ignorebraces
+# ignoreclosebraces     off         The shell will perform brace expansion if activated. 
+#set -o ignoreclosebraces
+# ignoreeof             off         Do not exit on end-of-file. Require the use of exit or logout instead. However, ten consecutive EOFs will 
+#                                   cause the shell to exit anyway, to avoid the shell hanging if its tty goes away. 
+#set -o ignoreeof
+# incappendhistory      off         This option works like APPEND_HISTORY except that new history lines are added to the $HISTFILE incrementally 
+#                                   (as soon as they are entered), rather than waiting until the shell exits. The file will still be periodically 
+#                                   re-written to trim it when the number of lines grows 20% beyond the value specified by $SAVEHIST (see also 
+#                                   the HIST_SAVE_BY_COPY option).  
+#set -o incappendhistory
+# incappendhistorytime  off         This option is a variant of INC_APPEND_HISTORY in which, where possible, the history entry is written out to 
+#                                   the file after the command is finished, so that the time taken by the command is recorded correctly in the 
+#                                   history file in EXTENDED_HISTORY format. This means that the history entry will not be available immediately 
+#                                   from other instances of the shell that are using the same history file. 
+set -o incappendhistorytime
+# interactive           on          This is an interactive shell. This option is set upon initialisation if the standard input is a tty and 
+#                                   commands are being read from standard input. (See the discussion of SHIN_STDIN.) This heuristic may be 
+#                                   overridden by specifying a state for this option on the command line. The value of this option can only be 
+#                                   changed via flags supplied at invocation of the shell. It cannot be changed once zsh is running.
+#set +o interactive
+# interactivecomments   off         Allow comments even in interactive shells. 
+#set -o interactivecomments
+# ksharrays             off         Emulate ksh array handling as closely as possible. If this option is set, array elements are numbered from 
+#                                   zero, an array parameter without subscript refers to the first element instead of the whole array, and braces 
+#                                   are required to delimit a subscript (‘${path[2]}’ rather than just ‘$path[2]’) or to apply modifiers to any 
+#                                   parameter (‘${PWD:h}’ rather than ‘$PWD:h’).  
+#set -o ksharrays
+# kshautoload           off         Emulate ksh function autoloading. This means that when a function is autoloaded, the corresponding file is 
+#                                   merely executed, and must define the function itself. (By default, the function is defined to the contents 
+#                                   of the file. However, the most common ksh-style case - of the file containing only a simple definition of the 
+#                                   function - is always handled in the ksh-compatible manner.) 
+#set -o kshautoload
+# kshglob               off         n pattern matching, the interpretation of parentheses is affected by a preceding ‘@’, ‘*’, ‘+’, ‘?’ or ‘!’. 
+#set -o 
+# kshoptionprint        off         Alters the way options settings are printed: instead of separate lists of set and unset options, all options 
+#                                   are shown, marked ‘on’ if they are in the non-default state, ‘off’ otherwise.
+#set -o 
+# kshtypeset            off         Alters the way arguments to the typeset family of commands, including declare, export, float, integer, 
+#                                   local and readonly, are processed. Without this option, zsh will perform normal word splitting after command 
+#                                   and parameter expansion in arguments of an assignment; with it, word splitting does not take place in those 
+#                                   cases. 
+#set -o 
+# kshzerosubscript      off         Treat use of a subscript of value zero in array or string expressions as a reference to the first element, 
+#                                   i.e. the element that usually has the subscript 1. Ignored if KSH_ARRAYS is also set. 
+#set -o 
 # nolistambiguous       off         This option works when AUTO_LIST or BASH_AUTO_LIST is also set. If there is an unambiguous prefix to 
 #                                   insert on the command line, that is done without a completion list being displayed; in other words, 
 #                                   auto-listing behaviour only takes place when nothing would be inserted. In the case of BASH_AUTO_LIST, 
-#                                   this means that the list will be delayed to the third call of the function.
+#                                   this means that the list will be delayed to the third call of the function. 
+#set -o 
 # nolistbeep            off         Beep on an ambiguous completion. More accurately, this forces the completion widgets to return status 
 #                                   1 on an ambiguous completion, which causes the shell to beep if the option BEEP is also set; this may 
-#                                   be modified if completion is called from a user-defined widget.
-# listpacked            off       
-# listrowsfirst         off         
+#                                   be modified if completion is called from a user-defined widget. 
+#set -o 
+# listpacked            off         Try to make the completion list smaller (occupying less lines) by printing the matches in columns with 
+#                                   different widths. 
+#set -o 
+# listrowsfirst         off         Lay out the matches in completion lists sorted horizontally, that is, the second match is to the right 
+#                                   of the first one, not under it as usual. 
+#set -o 
 # nolisttypes           off         When listing files that are possible completions, show the type of each file with a trailing 
-#                                   identifying mark.
-# localloops            off       
-# localoptions          off       
-# localpatterns         off       
-# localtraps            off       
-# login                 on        
-# longlistjobs          off       
-# magicequalsubst       off       
-# mailwarning           off       
-# markdirs              off       
-# menucomplete          off       
-# monitor               on        
+#                                   identifying mark. 
+#set -o 
+# localloops            off         When this option is not set, the effect of break and continue commands may propagate outside function 
+#                                   scope, affecting loops in calling functions. When the option is set in a calling function, a break or 
+#                                   a continue that is not caught within a called function (regardless of the setting of the option within 
+#                                   that function) produces a warning and the effect is cancelled. 
+#set -o 
+# localoptions          off         If this option is set at the point of return from a shell function, most options (including this one) 
+#                                   which were in force upon entry to the function are restored; options that are not restored are PRIVILEGED 
+#                                   and RESTRICTED. Otherwise, only this option, and the LOCAL_LOOPS, XTRACE and PRINT_EXIT_VALUE options 
+#                                   are restored. Hence if this is explicitly unset by a shell function the other options in force at the 
+#                                   point of return will remain so. A shell function can also guarantee itself a known shell configuration 
+#                                   with a formulation like ‘emulate -L zsh’; the -L activates LOCAL_OPTIONS. 
+#set -o 
+# localpatterns         off         If this option is set at the point of return from a shell function, the state of pattern disables, as 
+#                                   set with the builtin command ‘disable -p’, is restored to what it was when the function was entered. 
+#                                   The behaviour of this option is similar to the effect of LOCAL_OPTIONS on options; hence 
+#                                   ‘emulate -L sh’ (or indeed any other emulation with the -L option) activates LOCAL_PATTERNS. 
+#set -o 
+# localtraps            off         If this option is set when a signal trap is set inside a function, then the previous status of the trap 
+#                                   for that signal will be restored when the function exits. Note that this option must be set prior to 
+#                                   altering the trap behaviour in a function; unlike LOCAL_OPTIONS, the value on exit from the function 
+#                                   is irrelevant. However, it does not need to be set before any global trap for that to be correctly 
+#                                   restored by a function. 
+#set -o 
+# login                 on          This is a login shell. If this option is not explicitly set, the shell becomes a login shell if the 
+#                                   first character of the argv[0] passed to the shell is a ‘-’. 
+#set +o 
+# longlistjobs          off         Print job notifications in the long format by default. 
+#set -o 
+# magicequalsubst       off         All unquoted arguments of the form ‘anything=expression’ appearing after the command name have filename 
+#                                   expansion (that is, where expression has a leading ‘~’ or ‘=’) performed on expression as if it were a 
+#                                   parameter assignment. The argument is not otherwise treated specially; it is passed to the command as 
+#                                   a single argument, and not used as an actual parameter assignment. For example, in echo foo=~/bar:~/rod, 
+#                                   both occurrences of ~ would be replaced. Note that this happens anyway with typeset and similar statements.
+# mailwarning           off         Print a warning message if a mail file has been accessed since the shell last checked. 
+#set -o 
+# markdirs              off         Append a trailing ‘/’ to all directory names resulting from filename generation (globbing). 
+#set -o 
+# menucomplete          off         On an ambiguous completion, instead of listing possibilities or beeping, insert the first match immediately. 
+#                                   Then when completion is requested again, remove the first match and insert the second match, etc. When there 
+#                                   are no more matches, go back to the first one again. reverse-menu-complete may be used to loop through the 
+#                                   list in the other direction. This option overrides AUTO_MENU. 
+#set -o 
+# monitor               on          Allow job control. Set by default in interactive shells. 
+#set +o 
 # nomultibyte           off         Respect multibyte characters when found in strings. When this option is set, strings are examined 
 #                                   using the system library to determine how many bytes form a character, depending on the current 
 #                                   locale. This affects the way characters are counted in pattern matching, parameter values and 
-#                                   various delimiters.
+#                                   various delimiters. 
+#set -o 
 # nomultifuncdef        off         Allow definitions of multiple functions at once in the form ‘fn1 fn2...()’; if the option is not 
 #                                   set, this causes a parse error. Definition of multiple functions with the function keyword is always 
-#                                   allowed. Multiple function definitions are not often used and can cause obscure errors.
-# nomultios             off         Perform implicit tees or cats when multiple redirections are attempted (see Redirection).
+#                                   allowed. Multiple function definitions are not often used and can cause obscure errors. 
+#set -o 
+# nomultios             off         Perform implicit tees or cats when multiple redirections are attempted (see Redirection). 
+#set -o 
 # nonomatch             off         If a pattern for filename generation has no matches, print an error, instead of leaving it unchanged 
-#                                   in the argument list. This also applies to file expansion of an initial ‘~’ or ‘=’. 
-# nonotify              off         Cause the status of terminated background jobs to be 
-#                                   reported immediately, rather than before printing the
-#                                   next primary prompt.
+#                                   in the argument list. This also applies to file expansion of an initial ‘~’ or ‘=’.  
+#set -o 
+# nonotify              off         Cause the status of terminated background jobs to be reported immediately, rather than before printing the
+#                                   next primary prompt. 
+#set -o 
 # nullglob              off         If a pattern for filename generation has no matches, delete the pattern from the argument list instead 
-#                                   of reporting an error. Overrides NOMATCH.
+#                                   of reporting an error. Overrides NOMATCH. 
+#set -o 
 # numericglobsort       off         If numeric filenames are matched by a filename generation pattern, sort the filenames numerically 
-#                                   rather than lexicographically.
-# octalzeroes           off       
-# overstrike            off         Defaults the editor to "insert" mode. This replaces 
-#                                   the character to the right with each keystroke.
+#                                   rather than lexicographically. 
+#set -o 
+# octalzeroes           off         
+#set -o 
+# overstrike            off         Defaults the editor to "insert" mode. This replaces the character to the right with each keystroke. 
+#set -o 
 # pathdirs              off       
 # pathscript            off       
 # pipefail              off       

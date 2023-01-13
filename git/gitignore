@@ -1,0 +1,35 @@
+###############################################################################
+# Git Global Ignore                                                           #
+###############################################################################
+# 
+# This file is based largely upon the efforts of:
+# https://github.com/dotphiles/dotphiles
+# 
+# See my repo readme for more credits:
+# https://github.com/leftygamer02/macOS-dotfiles
+
+# Compiled source
+*.pyc
+*.pyo
+
+# OS generated files
+._*
+.cache
+.Spotlight-V100
+.Trashes
+.DS_Store
+desktop.ini
+ehthumbs.db
+Thumbs.db
+
+# Other dev-related files
+*.bak
+*.orig
+*.sass-cache
+.directory
+*~
+.svn/*
+*.swp
+svn-commit.*
+tags
+TAGS

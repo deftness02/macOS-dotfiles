@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+###############################################################################
+# Homebrew Configuration Script                                               #
+###############################################################################
+#
+# This file is based largely upon the efforts of:
+# ~/.macos — https://mths.be/macos
+#
+# See my repo readme for more credits:
+# https://github.com/leftygamer02/macOS-dotfiles
+#
 # The purpose of this script is to install helpful command-line (CLI)
 # tools through the use of our favorite package manager, Homebrew.
 
