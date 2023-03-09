@@ -35,20 +35,50 @@ alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/projects"
 alias lib="cd ~/Library"
-alias proj="~/projects"
+alias drive="/Volumes/Drei/drive/"
 alias daten~"~/daten"
 alias media="~/medien"
 alias apps="/Applications"
-alias me="~/"
+alias home="~/"
 
-alias dhc="ssh dhc"
-    
 # Shortcuts to desired or most-used apps:
 alias textedit="open /Applications/TextEdit.app"
 alias rider="open /Applications/Rider.app"
 alias firefox="open /Applications/Firefox.app"
 alias filezilla="open /Applications/FileZilla.app"
 alias indesign="open /Applications/InDesign.app"
+alias term="open /Applications/Terminal.app"
+alias vpn="open /Applications/ProtonVPN.app"
+alias spotify="open /Applications/Spotify.app"
+
+###############################################################################
+## MySQL                                                                     ##
+###############################################################################
+
+alias sqlstart="systemctl start mysql"
+alias sqlstop="systemctl stop mysql"
+alias sqlrestart="sudo systemctl restart mysql"
+alias sqlinstall="mysql_secure_installation"
+alias sqlroot="mysql -u root -p"
+alias sqluser="mysql -u user -p"
+alias sqlimport="mysql -u root -p database < databaseDB.sql"
+
+###############################################################################
+## Nginx                                                                     ##
+###############################################################################
+
+alias nginxstart="systemctl start nginx"
+alias nginxstop="systemctl stop nginx"
+alias nginxrestart="systemctl restart nginx"
+
+###############################################################################
+## DAoC                                                                      ##
+###############################################################################
+
+alias serverconfig="cp ~/eclipseCore/DOLServer/config/serverconfig.example.xml ~/eclipseCore/DOLServer/config/serverconfig.xml"
+alias unzipdb="unzip ~/eclipseCore/DOLDatabase/"
+alias build="dotnet build DOLLinux.sln"
+alias run="dotnet run --project DOLServer"
 
 ###############################################################################
 ## Git Commands                                                              ##
@@ -98,9 +128,9 @@ alias ls="command ls ${colorflag}"
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+alias grep="grep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias egrep="egrep --color=auto"
 
 ###############################################################################
 ## General                                                                   ##
@@ -113,10 +143,10 @@ alias sudo='sudo '
 alias afk="i3lock -c 000000"
 
 # Get week number
-alias week='date +%V'
+alias week="date +%V"
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup'
+alias update="sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update; sudo gem cleanup"
 
 # Google Chrome
 # alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
