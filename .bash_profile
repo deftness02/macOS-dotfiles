@@ -1,10 +1,9 @@
 ###############################################################################
 # Bash Profile                                                                 #
 ###############################################################################
-#
+
 # This file is based largely upon the efforts of:
 # ~/.macos — https://mths.be/macos
-#
 # See my repo readme for more credits:
 # https://github.com/leftygamer02/macOS-dotfiles
 
