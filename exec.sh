@@ -14,6 +14,8 @@ DIR=`dirname "${THIS}"`
 
 # 'Dot' means 'source', i.e. 'include':
 
+xcode-select --install
+
 echo "Running the bash configuration script..."
 
 . "$DIR/.bash_profile"
