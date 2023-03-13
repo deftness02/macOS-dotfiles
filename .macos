@@ -3,10 +3,10 @@
 ###############################################################################
 # macOS Configuration Script                                                  #
 ###############################################################################
-#
+
 # This file is based largely upon the efforts of:
 # ~/.macos — https://mths.be/macos
-#
+
 # See my repo readme for more credits:
 # https://github.com/leftygamer02/macOS-dotfiles
 
@@ -56,7 +56,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #                                   does not already exists (the traditional zsh behaviour of NO_CLOBBER). If the option 
 #                                   is set, no error is reported (POSIX behaviour). 
 #set -o appendcreate
-# noappendhistory       off         If this is set, zsh sessions will append their history list to the 
+# noappendhistory       off         If this is set to off, zsh sessions will append their history list to the 
 #                                   history file, rather than replace it. Thus, multiple parallel zsh 
 #                                   sessions will all have the new entries from their history lists added 
 #                                   to the history file, in the order that they exit. The file will still be 
@@ -71,7 +71,8 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #                                   for interactive use; it is recommended that cd be used explicitly in scripts 
 #                                   to avoid ambiguity.
 #set -o autocd
-# autocontinue          off         With this option set, stopped jobs that are removed from the job table with the 
+#set +o autocd
+# autocontinue          off         With this option turned on, stopped jobs that are removed from the job table with the 
 #                                   disown builtin command are automatically sent a CONT signal to make them running.
 #set -o autocontinue
 # noautolist            off         Prevents list choices on an ambiguous completion.
@@ -125,7 +126,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #                                   the match array variable contains substrings.
 #set -o bashrematch
 # nobeep                off         Prevents the device from audible beeps upon encountering an error.
-set -o nobeep
+#set -o nobeep
 # nobgnice              off         Run all background jobs at a lower priority. This option is set by default.
 #set -o nobgnice
 # braceccl              off         Expand expressions in braces which would not otherwise undergo brace expansion to a 
@@ -169,7 +170,7 @@ set -o nobeep
 # chaselinks            off         Resolve symbolic links to their true values when changing directory. This also has the effect 
 #                                   of CHASE_DOTS, i.e. a ‘..’ path segment will be treated as referring to the physical parent, 
 #                                   even if the preceding path segment is a symbolic link.
-set -o chaselinks
+#set -o chaselinks
 # nocheckjobs           off         Report the status of background and suspended jobs before exiting a shell with job control; 
 #                                   a second attempt to exit the shell will succeed. NO_CHECK_JOBS is best used only in combination 
 #                                   with NO_HUP, else such jobs will be killed automatically.
@@ -409,7 +410,7 @@ set -o chaselinks
 #                                   the file after the command is finished, so that the time taken by the command is recorded correctly in the 
 #                                   history file in EXTENDED_HISTORY format. This means that the history entry will not be available immediately 
 #                                   from other instances of the shell that are using the same history file. 
-set -o incappendhistorytime
+#set -o incappendhistorytime
 # interactive           on          This is an interactive shell. This option is set upon initialisation if the standard input is a tty and 
 #                                   commands are being read from standard input. (See the discussion of SHIN_STDIN.) This heuristic may be 
 #                                   overridden by specifying a state for this option on the command line. The value of this option can only be 
@@ -428,222 +429,276 @@ set -o incappendhistorytime
 #                                   function - is always handled in the ksh-compatible manner.) 
 #set -o kshautoload
 # kshglob               off         n pattern matching, the interpretation of parentheses is affected by a preceding ‘@’, ‘*’, ‘+’, ‘?’ or ‘!’. 
-#set -o 
+#set -o kshglob
 # kshoptionprint        off         Alters the way options settings are printed: instead of separate lists of set and unset options, all options 
 #                                   are shown, marked ‘on’ if they are in the non-default state, ‘off’ otherwise.
-#set -o 
+#set -o kshoptionprint
 # kshtypeset            off         Alters the way arguments to the typeset family of commands, including declare, export, float, integer, 
 #                                   local and readonly, are processed. Without this option, zsh will perform normal word splitting after command 
 #                                   and parameter expansion in arguments of an assignment; with it, word splitting does not take place in those 
 #                                   cases. 
-#set -o 
+#set -o kshtypeset
 # kshzerosubscript      off         Treat use of a subscript of value zero in array or string expressions as a reference to the first element, 
 #                                   i.e. the element that usually has the subscript 1. Ignored if KSH_ARRAYS is also set. 
-#set -o 
+#set -o kshzerosubscript
 # nolistambiguous       off         This option works when AUTO_LIST or BASH_AUTO_LIST is also set. If there is an unambiguous prefix to 
 #                                   insert on the command line, that is done without a completion list being displayed; in other words, 
 #                                   auto-listing behaviour only takes place when nothing would be inserted. In the case of BASH_AUTO_LIST, 
 #                                   this means that the list will be delayed to the third call of the function. 
-#set -o 
+#set -o nolistambiguous
 # nolistbeep            off         Beep on an ambiguous completion. More accurately, this forces the completion widgets to return status 
 #                                   1 on an ambiguous completion, which causes the shell to beep if the option BEEP is also set; this may 
 #                                   be modified if completion is called from a user-defined widget. 
-#set -o 
+#set -o nolistbeep
 # listpacked            off         Try to make the completion list smaller (occupying less lines) by printing the matches in columns with 
 #                                   different widths. 
-#set -o 
+#set -o listpacked
 # listrowsfirst         off         Lay out the matches in completion lists sorted horizontally, that is, the second match is to the right 
 #                                   of the first one, not under it as usual. 
-#set -o 
+#set -o listrowsfirst
 # nolisttypes           off         When listing files that are possible completions, show the type of each file with a trailing 
 #                                   identifying mark. 
-#set -o 
+#set -o nolisttypes
 # localloops            off         When this option is not set, the effect of break and continue commands may propagate outside function 
 #                                   scope, affecting loops in calling functions. When the option is set in a calling function, a break or 
 #                                   a continue that is not caught within a called function (regardless of the setting of the option within 
 #                                   that function) produces a warning and the effect is cancelled. 
-#set -o 
+#set -o localloops
 # localoptions          off         If this option is set at the point of return from a shell function, most options (including this one) 
 #                                   which were in force upon entry to the function are restored; options that are not restored are PRIVILEGED 
 #                                   and RESTRICTED. Otherwise, only this option, and the LOCAL_LOOPS, XTRACE and PRINT_EXIT_VALUE options 
 #                                   are restored. Hence if this is explicitly unset by a shell function the other options in force at the 
 #                                   point of return will remain so. A shell function can also guarantee itself a known shell configuration 
 #                                   with a formulation like ‘emulate -L zsh’; the -L activates LOCAL_OPTIONS. 
-#set -o 
+#set -o localoptions
 # localpatterns         off         If this option is set at the point of return from a shell function, the state of pattern disables, as 
 #                                   set with the builtin command ‘disable -p’, is restored to what it was when the function was entered. 
 #                                   The behaviour of this option is similar to the effect of LOCAL_OPTIONS on options; hence 
 #                                   ‘emulate -L sh’ (or indeed any other emulation with the -L option) activates LOCAL_PATTERNS. 
-#set -o 
+#set -o localpatterns
 # localtraps            off         If this option is set when a signal trap is set inside a function, then the previous status of the trap 
 #                                   for that signal will be restored when the function exits. Note that this option must be set prior to 
 #                                   altering the trap behaviour in a function; unlike LOCAL_OPTIONS, the value on exit from the function 
 #                                   is irrelevant. However, it does not need to be set before any global trap for that to be correctly 
 #                                   restored by a function. 
-#set -o 
+#set -o localtraps
 # login                 on          This is a login shell. If this option is not explicitly set, the shell becomes a login shell if the 
 #                                   first character of the argv[0] passed to the shell is a ‘-’. 
-#set +o 
+#set +o login
 # longlistjobs          off         Print job notifications in the long format by default. 
-#set -o 
+#set -o longlistjobs
 # magicequalsubst       off         All unquoted arguments of the form ‘anything=expression’ appearing after the command name have filename 
 #                                   expansion (that is, where expression has a leading ‘~’ or ‘=’) performed on expression as if it were a 
 #                                   parameter assignment. The argument is not otherwise treated specially; it is passed to the command as 
 #                                   a single argument, and not used as an actual parameter assignment. For example, in echo foo=~/bar:~/rod, 
 #                                   both occurrences of ~ would be replaced. Note that this happens anyway with typeset and similar statements.
+#set -o magicequalsubst
 # mailwarning           off         Print a warning message if a mail file has been accessed since the shell last checked. 
-#set -o 
+#set -o mailwarning
 # markdirs              off         Append a trailing ‘/’ to all directory names resulting from filename generation (globbing). 
-#set -o 
+#set -o markdirs
 # menucomplete          off         On an ambiguous completion, instead of listing possibilities or beeping, insert the first match immediately. 
 #                                   Then when completion is requested again, remove the first match and insert the second match, etc. When there 
 #                                   are no more matches, go back to the first one again. reverse-menu-complete may be used to loop through the 
 #                                   list in the other direction. This option overrides AUTO_MENU. 
-#set -o 
+#set -o menucomplete
 # monitor               on          Allow job control. Set by default in interactive shells. 
-#set +o 
+#set +o monitor
 # nomultibyte           off         Respect multibyte characters when found in strings. When this option is set, strings are examined 
 #                                   using the system library to determine how many bytes form a character, depending on the current 
 #                                   locale. This affects the way characters are counted in pattern matching, parameter values and 
 #                                   various delimiters. 
-#set -o 
+#set -o nomultibyte
 # nomultifuncdef        off         Allow definitions of multiple functions at once in the form ‘fn1 fn2...()’; if the option is not 
 #                                   set, this causes a parse error. Definition of multiple functions with the function keyword is always 
 #                                   allowed. Multiple function definitions are not often used and can cause obscure errors. 
-#set -o 
+#set -o nomultifuncdef
 # nomultios             off         Perform implicit tees or cats when multiple redirections are attempted (see Redirection). 
-#set -o 
+#set -o nomultios
 # nonomatch             off         If a pattern for filename generation has no matches, print an error, instead of leaving it unchanged 
 #                                   in the argument list. This also applies to file expansion of an initial ‘~’ or ‘=’.  
-#set -o 
+#set -o nonomatch
 # nonotify              off         Cause the status of terminated background jobs to be reported immediately, rather than before printing the
 #                                   next primary prompt. 
-#set -o 
+#set -o nonotify
 # nullglob              off         If a pattern for filename generation has no matches, delete the pattern from the argument list instead 
 #                                   of reporting an error. Overrides NOMATCH. 
-#set -o 
+#set -o nullglob
 # numericglobsort       off         If numeric filenames are matched by a filename generation pattern, sort the filenames numerically 
 #                                   rather than lexicographically. 
-#set -o 
+#set -o numericglobsort
 # octalzeroes           off         
-#set -o 
+#set -o octalzeroes
 # overstrike            off         Defaults the editor to "insert" mode. This replaces the character to the right with each keystroke. 
-#set -o 
-# pathdirs              off       
-# pathscript            off       
-# pipefail              off       
-# posixaliases          off       
-# posixargzero          off       
-# posixbuiltins         off       
-# posixcd               off       
-# posixidentifiers       off        
-# posixjobs             off       
-# posixstrings          off       
-# posixtraps            off       
-# printeightbit         off       
-# printexitvalue        off       
-# privileged            off       
-# promptbang            off       
+#set -o overstrike
+# pathdirs              off          
+##set -o 
+# pathscript            off          
+##set -o 
+# pipefail              off          
+##set -o 
+# posixaliases          off          
+##set -o 
+# posixargzero          off          
+##set -o 
+# posixbuiltins         off          
+##set -o 
+# posixcd               off          
+##set -o 
+# posixidentifiers      off          
+##set -o 
+# posixjobs             off          
+##set -o 
+# posixstrings          off          
+##set -o 
+# posixtraps            off          
+##set -o 
+# printeightbit         off          
+##set -o 
+# printexitvalue        off          
+##set -o 
+# privileged            off          
+##set -o 
+# promptbang            off          
+##set -o 
 # nopromptcr            off         Print a carriage return just before printing a prompt in the line editor. This is on by default 
 #                                   as multi-line editing is only possible if the editor knows where the start of the line appears.
+#set -o 
 # nopromptpercent       off         If set, ‘%’ is treated specially in prompt expansion.
+#set -o 
 # nopromptsp            off         Attempt to preserve a partial line (i.e. a line that did not end with a newline) that would otherwise 
 #                                   be covered up by the command prompt due to the PROMPT_CR option. This works by outputting some 
 #                                   cursor-control characters, including a series of spaces, that should make the terminal wrap to the 
 #                                   next line when a partial line is present (note that this is only successful if your terminal has 
 #                                   automatic margins, which is typical).
-# promptsubst           off       
-# pushdignoredups       off       
-# pushdminus            off       
-# pushdsilent           off       
-# pushdtohome           off       
-# rcexpandparam         off       
-# rcquotes              off       
+#set -o 
+# promptsubst           off         
+#set -o 
+# pushdignoredups       off         
+#set -o 
+# pushdminus            off         
+#set -o 
+# pushdsilent           off         
+#set -o 
+# pushdtohome           off         
+#set -o 
+# rcexpandparam         off         
+#set -o 
+# rcquotes              off         
+#set -o 
 # norcs                 off         After /etc/zshenv is sourced on startup, source the .zshenv, /etc/zprofile, .zprofile, /etc/zshrc, 
 #                                   .zshrc, /etc/zlogin, .zlogin, and .zlogout files, as described in Files. If this option is unset, 
 #                                   the /etc/zshenv file is still sourced, but any of the others will not be; it can be set at any time 
 #                                   to prevent the remaining startup files after the currently executing one from being sourced.
-# recexact              off       
-# rematchpcre           off       
-# restricted            off       
-# rmstarsilent          off       
-# rmstarwait            off       
+#set -o 
+# recexact              off         
+#set -o 
+# rematchpcre           off         
+#set -o 
+# restricted            off         
+#set -o 
+# rmstarsilent          off         
+#set -o 
+# rmstarwait            off         
+#set -o 
 # sharehistory          off         This option both imports new commands from the history file, and also causes your typed commands 
 #                                   to be appended to the history file (the latter is like specifying INC_APPEND_HISTORY, which should 
 #                                   be turned off if this option is in effect). The history lines are also output with timestamps ala 
 #                                   EXTENDED_HISTORY (which makes it easier to find the spot where we left off reading the file after 
 #                                   it gets re-written).
+#set -o 
 # shfileexpansion        off        Perform filename expansion (e.g., ~ expansion) before parameter expansion, command substitution, 
 #                                   arithmetic expansion and brace expansion. If this option is unset, it is performed after brace expansion, 
 #                                   so things like ‘~$USERNAME’ and ‘~{pfalstad,rc}’ will work.
+#set -o 
 # shglob                off         Disables the special meaning of ‘(’, ‘|’, ‘)’ and ’<’ for globbing the result of parameter and command 
 #                                   substitutions, and in some other places where the shell accepts patterns. If SH_GLOB is set but KSH_GLOB 
 #                                   is not, the shell allows the interpretation of subshell expressions enclosed in parentheses in some cases 
 #                                   where there is no space before the opening parenthesis, e.g. !(true) is interpreted as if there were a 
 #                                   space after the !. This option is set by default if zsh is invoked as sh or ksh. 
+#set -o 
 # shinstdin             on          Commands are being read from the standard input. Commands are read from standard input if no command 
 #                                   is specified with -c and no file of commands is specified. If SHIN_STDIN is set explicitly on the command 
 #                                   line, any argument that would otherwise have been taken as a file to run will instead be treated as a 
 #                                   normal positional parameter.
+#set -o 
 # shnullcmd             off         Do not use the values of NULLCMD and READNULLCMD when doing redirections, use ‘:’ instead.
+#set -o 
 # shoptionletters       off         If this option is set the shell tries to interpret single letter options (which are used with set and 
 #                                   setopt) like ksh does. This also affects the value of the - special parameter.
+#set -o 
 # noshortloops          off         Allow the short forms of for, repeat, select, if, and function constructs.
+#set -o 
 # shwordsplit           off         Causes field splitting to be performed on unquoted parameter expansions.
+#set -o 
 # singlecommand         off         If the shell is reading from standard input, it exits after a single command has been executed. This 
 #                                   also makes the shell non-interactive, unless the INTERACTIVE option is explicitly set on the command 
 #                                   line.
+#set -o 
 # singlelinezle         off         When activated, this prevents multi-line editing.
+#set -o 
 # sourcetrace           off         If set, zsh will print an informational message announcing the name of each file it loads. The format 
 #                                   of the output is similar to that for the XTRACE option, with the message <sourcetrace>. A file may be 
 #                                   loaded by the shell itself when it starts up and shuts down (Startup/Shutdown Files) or by the use of 
 #                                   the ‘source’ and ‘dot’ builtin commands.
+#set -o 
 # sunkeyboardhack       off         If a line ends with a backquote, and there are an odd number of backquotes on the line, ignore the 
 #                                   trailing backquote.
+#set -o 
 # transientrprompt      off         Remove any right prompt from display when accepting a command line. This may be useful with terminals 
 #                                   with other cut/paste methods.
+#set -o 
 # trapsasync            off         While waiting for a program to exit, handle signals and run traps immediately. Otherwise the trap is 
 #                                   run after a child process has exited.
+#set -o 
 # typesetsilent         off         If this is unset, executing any of the ‘typeset’ family of commands with no options and a list of 
 #                                   parameters that have no values to be assigned but already exist will display the value of the parameter.
+#set -o 
 # nounset               off         Treat unset parameters as if they were empty when substituting, and as if they were zero when reading 
 #                                   their values in arithmetic expansion and arithmetic commands. Otherwise they are treated as an error.
+#set -o 
 # verbose               off         Print shell input lines as they are read.
+#set -o 
 # vi                    off         If ZLE is loaded, turning on this option has the equivalent effect of ‘bindkey -v’. In addition, the 
 #                                   EMACS option is unset. Turning it off has no effect.
+#set -o 
 # warncreateglobal      off         Print a warning message when a global parameter is created in a function by an assignment or in math 
 #                                   context. This often indicates that a parameter has not been declared local when it should have been.
+#set -o 
 # warnnestedvar         off         Print a warning message when an existing parameter from an enclosing function scope, or global, is 
 #                                   set in a function by an assignment or in math context.
+#set -o 
 # xtrace                off         Print commands and their arguments as they are executed.
+#set -o 
 # zle                   on          Use the zsh line editor. Set by default in interactive shells connected to a terminal. 
+#set -o 
 
 # Turn off some options
-optOff=(
-    noaliases
-    nobanghist
-    nobgnice
-    nocaseglob
-    nocasematch
-    cdsilent
-    combiningchars
-    completealiases
-    continueonerror
-    correct
-)
-echo "Turning off some opts..."
-set +o "${optOff[@]}"
+# optOff=(
+#     noaliases
+#     nobanghist
+#     nobgnice
+#     nocaseglob
+#     nocasematch
+#     cdsilent
+#     combiningchars
+#     completealiases
+#     continueonerror
+#     correct
+# )
+# echo "Turning off some options..."
+# set +o "${optOff[@]}"
 
 # Turn on some options
-optOn=(
-    noappendhistory
-    nobadpattern
-    nobeep
-    cbases
-    chaselinks
-)
-echo "Turning on some opts..."
-set -o "${optOn[@]}"
+# optOn=(
+#     noappendhistory
+#     nobadpattern
+#     nobeep
+#     cbases
+#     chaselinks
+# )
+# echo "Turning on some opts..."
+# set -o "${optOn[@]}"
 
 # allexport            off
 # braceexpand          on
@@ -672,14 +727,13 @@ set -o "${optOn[@]}"
 # verbose              off
 # vi                   off
 # xtrace               off
-      
 
 # Turn off some options
-optOff=(
-    
-)
-echo "Turning off opts..."
-set +o "${optOff[@]}"
+# optOff=(
+#     
+# )
+# echo "Turning off opts..."
+# set +o "${optOff[@]}"
 
 
 # Here are the opts if you're using bash
@@ -720,43 +774,54 @@ set +o "${optOff[@]}"
 # xpg_echo       	        off
 
 # Turn off some options
-shoptOff=(
-    history
-    noaliases
-    extendedhistory
-    noglob
-    nohashcmds
-    nohashdirs
-    login
-    privileged
-    sharehistory
-    sunkeyboardhack
-    zle
-)
-echo "Turning off opts..."
-set +o "${shoptOff[@]}"
+# shoptOff=(
+#     history
+#     noaliases
+#     extendedhistory
+#     noglob
+#     nohashcmds
+#     nohashdirs
+#     login
+#     privileged
+#     sharehistory
+#     sunkeyboardhack
+#     zle
+# )
+# echo "Turning off opts..."
+# set +o "${shoptOff[@]}"
 
 # Turn on some options
-shoptOn=(
-    errexit
-    nounset
-    pipefail
-    nobeep
-    noexec
-    histnostore
-    ignoreeof
-    localoptions
-    markdirs
-    nonotify
-    norcs
-    sourcetrace
-    trapsasync
-    xtrace
-)
-echo "Turning on opts..."
-set -o "${shoptOn[@]}"
+# shoptOn=(
+#     errexit
+#     nounset
+#     pipefail
+#     nobeep
+#     noexec
+#     histnostore
+#     ignoreeof
+#     localoptions
+#     markdirs
+#     nonotify
+#     norcs
+#     sourcetrace
+#     trapsasync
+#     xtrace
+# )
+# echo "Turning on opts..."
+# set -o "${shoptOn[@]}"
 
-(shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+# (shopt -p inherit_errexit &>/dev/null) && shopt -s inherit_errexit
+
+# set -o allexport
+# set -o braceexpand
+# set -o emacs
+# set -o hashall
+# set -o histexpand
+# set -o history 
+# set -o interactive-comments
+# set -o monitor
+
+
 
 
 ###############################################################################
@@ -839,15 +904,11 @@ defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false # Default is tru
 defaults write -g NSShowAppCentricOpenPanelInsteadOfUntitledFile -bool false
 
 # Automatically expand the Save panel by default.
-defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
-defaults write -g NSNavPanelExpandedStateForSaveMode2 -bool true
+defaults write -g NSNavPanelExpandedStateForSaveMode -bool true # Default is false
+defaults write -g NSNavPanelExpandedStateForSaveMode2 -bool true # Default is false
 
 # Expand the Save dialog window by default for convenience.
-defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
-
-# Increase tracking speed beyond the maximum allowable value you can select in
-# the System Preferences / Settings app (which is 3.0).
-defaults write -g com.apple.mouse.scaling -float 5.0
+defaults write -g NSNavPanelExpandedStateForSaveMode -bool true # Default is false
 
 # Stop the cursor/caret from blinking.
 defaults write -g NSTextInsertionPointBlinkPeriodOff -float 0
@@ -867,7 +928,7 @@ defaults write -g WebKitDeveloperExtras -bool true
 # Increase the speed of scrolling by dragging.
 defaults write -g NSAutoscrollResponseMultiplier -float 3
 
-# Don't include shadows in screenshots of windows
+# Don't include shadows in screenshots of windows.
 defaults write com.apple.screencapture disable-shadow -bool true
 
 # Omit crash report dialogs.
@@ -898,6 +959,7 @@ defaults write com.apple.Accessibility DarkenSystemColors -bool true
 ## Bluetooth                                                                 ##
 ###############################################################################
 
+# If you're not in the mood for or simply don't use Bluetooth, this will shut it down completely.
 sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0 && \
 sudo killall -HUP bluetoothd
 
@@ -1183,23 +1245,28 @@ defaults write -g ApplePressAndHoldEnabled -bool true
 
 for app in "Activity Monitor" \
 	"Address Book" \
+	"App Store" \
 	"Calendar" \
 	"cfprefsd" \
 	"Contacts" \
 	"CrossOver" \
 	"DataGrip" \
+	"Discord" \
 	"Dock" \
 	"FaceTime" \
 	"Finder" \
 	"Firefox" \
+	"LuLu" \
 	"Mail" \
 	"Maps" \
 	"Messages" \
 	"Music" \
 	"Photos" \
 	"Podcasts" \
-	"Rider" \
+	"ProtonVPN" \
+	"Jetbrains Rider" \
 	"Safari" \
+	"Spotify" \
 	"Stocks" \
 	"SystemUIServer" \
 	"Terminal" \
