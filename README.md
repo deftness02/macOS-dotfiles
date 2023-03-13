@@ -10,18 +10,34 @@ I am nobody. I am primarily a technical writer learning to code, so I will not m
 # Credit
 I will not claim any amount of credit for coming up with this. It relied heavily on the previous work of others, which has served as a jumping point for me in creating a truly comprehensive configuration repo. A special thanks goes out to the following:
 
-* Mathias Bynens' [dotfiles project](https://mths.be/macos)
-* [Homebrew](https://brew.sh)
-* @ptb's [macOS Setup repository](https://github.com/ptb/mac-setup)
-* Ben Alman's [dotfiles repository](https://github.com/cowboy/dotfiles)
-* Cătălin Mariș' [dotfiles repository](https://github.com/alrra/dotfiles)
-* Gianni Chiappetta's [collection of dotfiles](https://github.com/gf3/dotfiles)
-* Jan Moesen's [.bash_profile](https://gist.github.com/1156154)
-* Lauri ‘Lri’ Ranta's [hidden preferences](https://web.archive.org/web/20161104144204/http://osxnotes.net/defaults.html)
-* Matijs Brinkhuis' [dotfiles repository](https://github.com/matijs/dotfiles)
-* Nicolas Gallagher's [dotfiles repository](https://github.com/necolas/dotfiles)
-* [Sindre Sorhus](https://sindresorhus.com/)
-* Tom Ryder's [dotfiles repository](https://sanctum.geek.nz/cgit/dotfiles.git/about)
-* Kevin Suttle's [dotfiles repository](https://github.com/kevinSuttle/dotfiles) and [macOS-Defaults project](https://github.com/kevinSuttle/macOS-Defaults)
-* [Haralan Dobrev](https://hkdobrev.com/)
-* And the many others who have contributed to this niche area
+* Mathias Bynens' [dotfiles project][mbynen]
+* [Homebrew][homebrew]
+* @ptb's [macOS Setup repository][ptb]
+* Ben Alman's [dotfiles repository][balman]
+* Cătălin Mariș' [dotfiles repository][cmaris]
+* Gianni Chiappetta's [collection of dotfiles][gchiappetta]
+* Jan Moesen's [.bash_profile][jmoesen]
+* Lauri ‘Lri’ Ranta's [hidden preferences][lranta]
+* Matijs Brinkhuis' [dotfiles repository][mbrinkhuis]
+* Nicolas Gallagher's [dotfiles repository][ngallagher]
+* [Sindre Sorhus][ssorhus]
+* Tom Ryder's [dotfiles repository][tryder]
+* Kevin Suttle's [dotfiles repository][ksuttle] and [macOS-Defaults project][ksuttle2]
+* [Haralan Dobrev][hdobrev]
+* And the many others who have contributed to this niche area of coding
+
+[mbynen]: https://mths.be/macos
+[homebrew]: https://brew.sh
+[ptb]: https://github.com/ptb/mac-setup
+[balman]: https://github.com/cowboy/dotfiles
+[cmaris]: https://github.com/alrra/dotfiles
+[gchiappetta]: https://github.com/gf3/dotfiles
+[jmoesen]: https://gist.github.com/1156154
+[lranta]: https://web.archive.org/web/20161104144204/http://osxnotes.net/defaults.html
+[mbrinkhuis]: https://github.com/matijs/dotfiles
+[ngallagher]: https://github.com/necolas/dotfiles
+[ssorhus]: https://sindresorhus.com/
+[tryder]: https://sanctum.geek.nz/cgit/dotfiles.git/about
+[ksuttle]: https://github.com/kevinSuttle/dotfiles
+[ksuttle2]: https://github.com/kevinSuttle/macOS-Defaults
+[hdobrev]: https://hkdobrev.com/
