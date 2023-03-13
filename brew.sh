@@ -3,13 +3,13 @@
 ###############################################################################
 # Homebrew Configuration Script                                               #
 ###############################################################################
-#
+
 # This file is based largely upon the efforts of:
 # ~/.macos — https://mths.be/macos
-#
+
 # See my repo readme for more credits:
 # https://github.com/leftygamer02/macOS-dotfiles
-#
+
 # The purpose of this script is to install helpful command-line (CLI)
 # tools through the use of our favorite package manager, Homebrew.
 
@@ -17,8 +17,7 @@
 # Initial Setup                                                               #
 ###############################################################################
 
-echo "Starting setup"
-xcode-select --install
+echo "Starting Homebrew setup"
 
 # Check for Homebrew to be present, install if it's missing.
 if test ! $(which brew); then
@@ -94,6 +93,97 @@ macTools=(
 echo "Installing more current macOS tools..."
 brew install "${macTools[@]}"
 
+# More tools to consider
+  #bash
+  #certbot
+  #chromedriver
+  #coreutils
+  #dash
+  #duti
+  #e2fsprogs
+  #fasd
+  #fdupes
+  #gawk
+  #getmail
+  #git
+  #git-flow
+  #git-lfs
+  #gnu-sed
+  #gnupg
+  #gpac
+  #httpie
+  #hub
+  #ievms
+  #imagemagick
+  #mas
+  #mercurial
+  #mp4v2
+  #mtr
+  #nmap
+  #node
+  #nodenv
+  #openssl
+  #p7zip
+  #perl-build
+  #pinentry-mac
+  #plenv
+  #pyenv
+  #rbenv
+  #rsync
+  #selenium-server-standalone
+  #shellcheck
+  #sleepwatcher
+  #sqlite
+  #stow
+  #syncthing
+  #syncthing-inotify
+  #tag
+  #terminal-notifier
+  #the_silver_searcher
+  #trash
+  #unrar
+  #vcsh
+  #vim
+  #yarn
+  #youtube-dl
+  #zsh
+  #zsh-syntax-highlighting
+  #zsh-history-substring-search
+  #homebrew/php/php71
+  #ptb/custom/dovecot
+  #ptb/custom/ffmpeg
+  #sdl2
+  #zimg
+  #x265
+  #webp
+  #wavpack
+  #libvorbis
+  #libvidstab
+  #two-lame
+  #theora
+  #tesseract
+  #speex
+  #libssh
+  #libsoxr
+  #snappy
+  #schroedinger
+  #rubberband
+  #rtmpdump
+  #opus
+  #openh264
+  #opencore-amr
+  #libmodplug
+  #libgsm
+  #game-music-emu
+  #fontconfig
+  #fdk-aac
+  #libcaca
+  #libbs2b
+  #libbluray
+  #libass
+  #chromaprint
+  #ptb/custom/nginx-full'
+
 ###############################################################################
 # Install Other Packages                                                      #
 ###############################################################################
@@ -124,6 +214,26 @@ brew install "${otherPackages[@]}"
 # TODO: Add more casks.
 # TODO: Add descriptions of cask apps for context.
 
+# Add Caskroom Options to Brewfile
+
+_args='colorpickerdir	/Library/ColorPickers
+fontdir	/Library/Fonts
+input_methoddir	/Library/Input Methods
+prefpanedir	/Library/PreferencePanes
+qlplugindir	/Library/QuickLook
+screen_saverdir	/Library/Screen Savers'
+
+install_brewfile_cask_args () {
+  printf 'cask_args \' >> "${BREWFILE}"
+  printf "%s\n" "${_args}" | \
+  while IFS="$(printf '\t')" read arg dir; do
+    printf '\n  %s: "%s",' "${arg}" "${dir}" >> "${BREWFILE}"
+  done
+  sed -i "" -e '$ s/,/\
+/' "${BREWFILE}"
+}
+
+
 # Rather than downloading apps and manually moving them to the Applications
 # folder, instead use Homebrew's casks to automate things.
 # More casks will be added as I figure out what's preferable in their list of 3,000 apps.
@@ -143,6 +253,95 @@ grabCasks=(
 )
 echo "Installing cask apps..."
 brew install --cask "${grabCasks[@]}"
+
+# More casks to consider
+  #java
+  #xquartz
+  #adium
+  #alfred
+  #arduino
+  #atom
+  #bbedit
+  #betterzip
+  #bitbar
+  #caffeine
+  #carbon-copy-cloner
+  #charles
+  #dash
+  #dropbox
+  #exifrenamer
+  #find-empty-folders
+  #firefox
+  #github-desktop
+  #gitup
+  #google-chrome
+  #hammerspoon
+  #handbrake
+  #hermes
+  #imageoptim
+  #inkscape
+  #integrity
+  #istat-menus
+  #iterm2
+  #jubler
+  #little-snitch
+  #machg
+  #menubar-countdown
+  #meteorologist
+  #moom
+  #mp4tools
+  #musicbrainz-picard
+  #namechanger
+  #nvalt
+  #nzbget
+  #nzbvortex
+  #openemu
+  #opera
+  #pacifist
+  #platypus
+  #plex-media-server
+  #qlstephen
+  #quitter
+  #radarr
+  #rescuetime
+  #resilio-sync
+  #scrivener
+  #sizeup
+  #sketch
+  #sketchup
+  #skitch
+  #skype
+  #slack
+  #sonarr
+  #sonarr-menu
+  #sourcetree
+  #steermouse
+  #subler
+  #sublime-text
+  #the-unarchiver
+  #time-sink
+  #torbrowser
+  #tower
+  #unrarx
+  #vimr
+  #vlc
+  #vmware-fusion
+  #wireshark
+  #xld
+  #caskroom/fonts/font-inconsolata-lgc
+  #caskroom/versions/transmit4
+  #ptb/custom/adobe-creative-cloud-2014
+  #ptb/custom/blankscreen
+  #ptb/custom/composer
+  #ptb/custom/enhanced-dictation
+  #ptb/custom/ipmenulet
+  #ptb/custom/pcalc-3
+  #ptb/custom/sketchup-pro
+  #ptb/custom/text-to-speech-alex
+  #ptb/custom/text-to-speech-allison
+  #ptb/custom/text-to-speech-samantha
+  #ptb/custom/text-to-speech-tom
+  #railwaycat/emacsmacport/emacs-mac-spacemacs-icon'
 
 ###############################################################################
 # Wrap Up                                                                     #
