@@ -88,6 +88,7 @@ brew install wget --with-iri
 macTools=(
      vim --with-override-system-vi
      grep
+     mas
      openssh
 )
 echo "Installing more current macOS tools..."
@@ -202,7 +203,7 @@ otherPackages=(
      pv
      readline
      rename
-     rlwrap]
+     rlwrap
      tree
 )
 echo "Installing some other packages..."
